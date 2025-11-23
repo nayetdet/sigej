@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: sigej_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - sigej-postgres-data:/var/lib/postgresql/data
+
+volumes:
+  sigej-postgres-data:
