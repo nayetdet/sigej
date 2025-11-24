@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de variação de produto</h2>
+<div class="hint">
+  Precisa de base? <a href="{{ url_for('produtos_bp.produtos') }}">Produtos</a>,
+  <a href="{{ url_for('cores_bp.cores') }}">Cores</a>,
+  <a href="{{ url_for('tamanhos_bp.tamanhos') }}">Tamanhos</a>.
+</div>
+<form method="post" class="card">
+  <label>Produto</label>
+  <select name="produto_id" required>
+    <option value="">Selecione</option>
+    {% for p in produtos %}
+      <option value="{{ p.id }}">{{ p.id }} — {{ p.descricao }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Cor</label>
+  <select name="cor_id">
+    <option value="">Selecione</option>
+    {% for c in cores %}
+      <option value="{{ c.id }}">{{ c.id }} — {{ c.nome }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Tamanho</label>
+  <select name="tamanho_id">
+    <option value="">Selecione</option>
+    {% for t in tamanhos %}
+      <option value="{{ t.id }}">{{ t.id }} — {{ t.descricao }}</option>
+    {% endfor %}
+  </select>
+
+  <label>Código de barras</label>
+  <input name="codigo_barras">
+  <label>Código interno</label>
+  <input name="codigo_interno">
+  <button class="btn" type="submit">Cadastrar</button>
+</form>
+
+<h3>Variações por produto</h3>
+{% for p in produtos %}
+  <div class="card">
+    <strong>{{ p.descricao }}</strong>
+    {% set variacoes = variacoes_por_produto.get(p.id, []) %}
+    {% if variacoes %}
+      <table>
+        <tr><th>ID</th><th>Cor</th><th>Tamanho</th><th>Cód. barras</th><th>Cód. interno</th></tr>
+        {% for v in variacoes %}
+          <tr>
+            <td>{{ v.id }}</td>
+            <td>{{ v.cor_id }}</td>
+            <td>{{ v.tamanho_id }}</td>
+            <td>{{ v.codigo_barras }}</td>
+            <td>{{ v.codigo_interno }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>Sem variações.</p>
+    {% endif %}
+  </div>
+{% endfor %}
+{% endblock %}

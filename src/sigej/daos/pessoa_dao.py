@@ -52,6 +52,3 @@ class PessoaDAO(BaseDAO):
                 pessoa.id,
             ],
         )
-
-    def delete(self, pessoa_id: int):
-        self._execute("DELETE FROM pessoa WHERE id = %s", [pessoa_id])

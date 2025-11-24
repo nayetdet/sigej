@@ -10,6 +10,18 @@ from src.sigej.services.tipo_os_service import TipoOSService
 from src.sigej.services.equipe_service import EquipeService
 from src.sigej.services.setor_service import SetorService
 from src.sigej.services.tipo_funcionario_service import TipoFuncionarioService
+from src.sigej.services.categoria_service import CategoriaService
+from src.sigej.services.unidade_medida_service import UnidadeMedidaService
+from src.sigej.services.marca_service import MarcaService
+from src.sigej.services.fornecedor_service import FornecedorService
+from src.sigej.services.cor_service import CorService
+from src.sigej.services.tamanho_service import TamanhoService
+from src.sigej.services.produto_service import ProdutoService
+from src.sigej.services.produto_variacao_service import ProdutoVariacaoService
+from src.sigej.services.local_estoque_service import LocalEstoqueService
+from src.sigej.services.tipo_movimento_service import TipoMovimentoService
+from src.sigej.services.status_os_service import StatusOSService
+from src.sigej.services.equipe_membro_service import EquipeMembroService
 
 class ServiceInstance:
     __pessoa_service: Optional[PessoaService] = None
@@ -22,6 +34,18 @@ class ServiceInstance:
     __equipe_service: Optional[EquipeService] = None
     __setor_service: Optional[SetorService] = None
     __tipo_funcionario_service: Optional[TipoFuncionarioService] = None
+    __categoria_service: Optional[CategoriaService] = None
+    __unidade_medida_service: Optional[UnidadeMedidaService] = None
+    __marca_service: Optional[MarcaService] = None
+    __fornecedor_service: Optional[FornecedorService] = None
+    __cor_service: Optional[CorService] = None
+    __tamanho_service: Optional[TamanhoService] = None
+    __produto_service: Optional[ProdutoService] = None
+    __produto_variacao_service: Optional[ProdutoVariacaoService] = None
+    __local_estoque_service: Optional[LocalEstoqueService] = None
+    __tipo_movimento_service: Optional[TipoMovimentoService] = None
+    __status_os_service: Optional[StatusOSService] = None
+    __equipe_membro_service: Optional[EquipeMembroService] = None
 
     @classmethod
     def get_pessoa_service(cls) -> PessoaService:
@@ -53,6 +77,7 @@ class ServiceInstance:
                 equipe_dao=DAOInstance.get_equipe_manutencao_dao(),
                 funcionario_dao=DAOInstance.get_funcionario_dao(),
                 status_dao=DAOInstance.get_status_ordem_servico_dao(),
+                produto_variacao_dao=DAOInstance.get_produto_variacao_dao(),
             )
         return cls.__ordem_servico_service
 
@@ -108,3 +133,94 @@ class ServiceInstance:
                 tipo_funcionario_dao=DAOInstance.get_tipo_funcionario_dao()
             )
         return cls.__tipo_funcionario_service
+
+    @classmethod
+    def get_categoria_service(cls) -> CategoriaService:
+        if cls.__categoria_service is None:
+            cls.__categoria_service = CategoriaService(categoria_dao=DAOInstance.get_categoria_material_dao())
+        return cls.__categoria_service
+
+    @classmethod
+    def get_unidade_medida_service(cls) -> UnidadeMedidaService:
+        if cls.__unidade_medida_service is None:
+            cls.__unidade_medida_service = UnidadeMedidaService(unidade_dao=DAOInstance.get_unidade_medida_dao())
+        return cls.__unidade_medida_service
+
+    @classmethod
+    def get_marca_service(cls) -> MarcaService:
+        if cls.__marca_service is None:
+            cls.__marca_service = MarcaService(marca_dao=DAOInstance.get_marca_dao())
+        return cls.__marca_service
+
+    @classmethod
+    def get_fornecedor_service(cls) -> FornecedorService:
+        if cls.__fornecedor_service is None:
+            cls.__fornecedor_service = FornecedorService(fornecedor_dao=DAOInstance.get_fornecedor_dao())
+        return cls.__fornecedor_service
+
+    @classmethod
+    def get_cor_service(cls) -> CorService:
+        if cls.__cor_service is None:
+            cls.__cor_service = CorService(cor_dao=DAOInstance.get_cor_dao())
+        return cls.__cor_service
+
+    @classmethod
+    def get_tamanho_service(cls) -> TamanhoService:
+        if cls.__tamanho_service is None:
+            cls.__tamanho_service = TamanhoService(tamanho_dao=DAOInstance.get_tamanho_dao())
+        return cls.__tamanho_service
+
+    @classmethod
+    def get_produto_service(cls) -> ProdutoService:
+        if cls.__produto_service is None:
+            cls.__produto_service = ProdutoService(
+                produto_dao=DAOInstance.get_produto_dao(),
+                categoria_dao=DAOInstance.get_categoria_material_dao(),
+                unidade_dao=DAOInstance.get_unidade_medida_dao(),
+                marca_dao=DAOInstance.get_marca_dao(),
+            )
+        return cls.__produto_service
+
+    @classmethod
+    def get_produto_variacao_service(cls) -> ProdutoVariacaoService:
+        if cls.__produto_variacao_service is None:
+            cls.__produto_variacao_service = ProdutoVariacaoService(
+                variacao_dao=DAOInstance.get_produto_variacao_dao(),
+                produto_dao=DAOInstance.get_produto_dao(),
+                cor_dao=DAOInstance.get_cor_dao(),
+                tamanho_dao=DAOInstance.get_tamanho_dao(),
+            )
+        return cls.__produto_variacao_service
+
+    @classmethod
+    def get_local_estoque_service(cls) -> LocalEstoqueService:
+        if cls.__local_estoque_service is None:
+            cls.__local_estoque_service = LocalEstoqueService(
+                local_dao=DAOInstance.get_local_estoque_dao(),
+                funcionario_dao=DAOInstance.get_funcionario_dao(),
+            )
+        return cls.__local_estoque_service
+
+    @classmethod
+    def get_tipo_movimento_service(cls) -> TipoMovimentoService:
+        if cls.__tipo_movimento_service is None:
+            cls.__tipo_movimento_service = TipoMovimentoService(
+                tipo_movimento_dao=DAOInstance.get_tipo_movimento_estoque_dao()
+            )
+        return cls.__tipo_movimento_service
+
+    @classmethod
+    def get_status_os_service(cls) -> StatusOSService:
+        if cls.__status_os_service is None:
+            cls.__status_os_service = StatusOSService(status_dao=DAOInstance.get_status_ordem_servico_dao())
+        return cls.__status_os_service
+
+    @classmethod
+    def get_equipe_membro_service(cls) -> EquipeMembroService:
+        if cls.__equipe_membro_service is None:
+            cls.__equipe_membro_service = EquipeMembroService(
+                equipe_membro_dao=DAOInstance.get_equipe_membro_dao(),
+                equipe_dao=DAOInstance.get_equipe_manutencao_dao(),
+                funcionario_dao=DAOInstance.get_funcionario_dao(),
+            )
+        return cls.__equipe_membro_service

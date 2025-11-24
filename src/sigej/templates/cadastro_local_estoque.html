@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de local de estoque</h2>
+<div class="hint">
+  Precisa cadastrar o responsável? <a href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Funcionários</a>.
+</div>
+<form method="post" class="card">
+  <label>Descrição</label>
+  <input name="descricao" required>
+  <label>Responsável (funcionário)</label>
+  <select name="responsavel_id">
+    <option value="">Opcional</option>
+    {% for f in funcionarios %}
+      <option value="{{ f.id }}">{{ f.id }}</option>
+    {% endfor %}
+  </select>
+  <button class="btn" type="submit">Cadastrar</button>
+</form>
+
+<h3>Existentes</h3>
+<table>
+  <tr><th>ID</th><th>Descrição</th><th>Responsável</th></tr>
+  {% for l in locais %}
+    <tr><td>{{ l.id }}</td><td>{{ l.descricao }}</td><td>{{ l.responsavel_id }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

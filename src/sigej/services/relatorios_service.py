@@ -1,17 +1,19 @@
+from typing import List, Tuple
+
 from src.sigej.daos.relatorios_dao import RelatoriosDAO
 
 class RelatoriosService:
     def __init__(self, relatorios_dao: RelatoriosDAO):
         self.__relatorios_dao = relatorios_dao
 
-    def os_em_aberto_por_prioridade_area(self):
+    def os_em_aberto_por_prioridade_area(self) -> List[Tuple]:
         return self.__relatorios_dao.os_em_aberto_por_prioridade_area()
 
-    def materiais_abaixo_ponto_reposicao(self):
+    def materiais_abaixo_ponto_reposicao(self) -> List[Tuple]:
         return self.__relatorios_dao.materiais_abaixo_ponto_reposicao()
 
-    def consumo_por_equipe_periodo(self, inicio: str, fim: str):
+    def consumo_por_equipe_periodo(self, inicio: str, fim: str) -> List[Tuple]:
         return self.__relatorios_dao.consumo_por_equipe_periodo(inicio, fim)
 
-    def os_concluidas_por_tipo_no_ano(self, ano: int):
+    def os_concluidas_por_tipo_no_ano(self, ano: int) -> List[Tuple]:
         return self.__relatorios_dao.os_concluidas_por_tipo_no_ano(ano)

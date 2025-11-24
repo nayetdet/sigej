@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Andamentos de OS</h2>
+<div class="hint">
+  Precisa cadastrar base? <a href="{{ url_for('os_bp.nova_os') }}">Ordens de serviço</a>,
+  <a href="{{ url_for('status_os_bp.status_os') }}">Status</a>,
+  <a href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Funcionários</a>.
+</div>
+<form method="post" class="card">
+  <label>OS</label>
+  <select name="os_id" required>
+    <option value="">Selecione</option>
+    {% for o in ordens %}
+      <option value="{{ o.id }}" {% if o.id == os_id %}selected{% endif %}>{{ o.id }} — {{ o.numero_sequencial }}</option>
+    {% endfor %}
+  </select>
+  <label>Novo status</label>
+  <select name="status_id" required>
+    <option value="">Selecione</option>
+    {% for s in status_list %}
+      <option value="{{ s.id }}">{{ s.id }} — {{ s.descricao }}</option>
+    {% endfor %}
+  </select>
+  <label>Funcionário</label>
+  <select name="funcionario_id" required>
+    <option value="">Selecione</option>
+    {% for f in funcionarios %}
+      <option value="{{ f.id }}">{{ f.id }}</option>
+    {% endfor %}
+  </select>
+  <label>Descrição</label>
+  <textarea name="descricao" rows="2"></textarea>
+  <button class="btn" type="submit">Registrar andamento</button>
+</form>
+
+{% if os_id %}
+  <h3>Linha do tempo da OS {{ os_id }}</h3>
+  {% if timeline %}
+    <table>
+      <tr><th>Data/Hora</th><th>Funcionário</th><th>Status</th><th>Descrição</th></tr>
+      {% for t in timeline %}
+        <tr>
+          <td>{{ t[0] }}</td>
+          <td>{{ t[1] }}</td>
+          <td>{{ t[2] }}</td>
+          <td>{{ t[3] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Sem registros para esta OS.</p>
+  {% endif %}
+{% else %}
+  <p>Selecione uma OS para ver a linha do tempo.</p>
+{% endif %}
+{% endblock %}

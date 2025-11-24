@@ -40,8 +40,5 @@ class FuncionarioDAO(BaseDAO):
         )
         return [Funcionario(*row) for row in rows]
 
-    def atualizar_setor(self, funcionario_id: int, novo_setor_id: int):
-        self._execute("UPDATE funcionario SET setor_id = %s WHERE id = %s", [novo_setor_id, funcionario_id])
-
     def demitir(self, funcionario_id: int, data_demissao: date):
         self._execute("UPDATE funcionario SET data_demissao = %s WHERE id = %s", [data_demissao, funcionario_id])

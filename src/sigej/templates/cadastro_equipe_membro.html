@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Membros de equipe</h2>
+<div class="hint">
+  Precisa cadastrar equipe ou funcionário antes? <a href="{{ url_for('equipes_bp.equipes') }}">Equipes</a> e
+  <a href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Funcionários</a>.
+</div>
+<form method="post" class="card">
+  <label>Equipe</label>
+  <select name="equipe_id" required>
+    <option value="">Selecione</option>
+    {% for e in equipes %}
+      <option value="{{ e.id }}">{{ e.id }} — {{ e.nome }}</option>
+    {% endfor %}
+  </select>
+  <label>Funcionário</label>
+  <select name="funcionario_id" required>
+    <option value="">Selecione</option>
+    {% for f in funcionarios %}
+      <option value="{{ f.id }}">{{ f.id }}</option>
+    {% endfor %}
+  </select>
+  <label>Função</label>
+  <input name="funcao">
+  <label>Data início</label>
+  <input type="date" name="data_inicio" value="{{ today.isoformat() }}">
+  <label>Data fim</label>
+  <input type="date" name="data_fim">
+  <button class="btn" type="submit">Adicionar</button>
+</form>
+
+<h3>Membros por equipe</h3>
+{% for e in equipes %}
+  <div class="card">
+    <strong>{{ e.nome }}</strong>
+    {% set lista = membros_por_equipe.get(e.id, []) %}
+    {% if lista %}
+      <table>
+        <tr><th>ID</th><th>Funcionário</th><th>Função</th><th>Início</th><th>Fim</th></tr>
+        {% for m in lista %}
+          <tr>
+            <td>{{ m.id }}</td>
+            <td>{{ m.funcionario_id }}</td>
+            <td>{{ m.funcao }}</td>
+            <td>{{ m.data_inicio }}</td>
+            <td>{{ m.data_fim }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    {% else %}
+      <p>Sem membros.</p>
+    {% endif %}
+  </div>
+{% endfor %}
+{% endblock %}

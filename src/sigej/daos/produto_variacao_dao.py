@@ -40,3 +40,12 @@ class ProdutoVariacaoDAO(BaseDAO):
             [produto_id],
         )
         return [ProdutoVariacao(*row) for row in rows]
+
+    def list_all(self) -> list[ProdutoVariacao]:
+        rows = self._fetchall(
+            """
+            SELECT id, produto_id, cor_id, tamanho_id, codigo_barras, codigo_interno
+            FROM produto_variacao ORDER BY id
+            """
+        )
+        return [ProdutoVariacao(*row) for row in rows]

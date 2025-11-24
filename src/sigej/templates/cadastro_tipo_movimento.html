@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de tipo de movimento de estoque</h2>
+<p>Use em <a href="{{ url_for('movimentos_bp.movimentos') }}">Movimentos de estoque</a> para entradas e saídas.</p>
+<form method="post" class="card">
+  <label>Descrição</label>
+  <input name="descricao" required>
+  <label>Sinal</label>
+  <select name="sinal" required>
+    <option value="">Selecione</option>
+    <option value="+">Entrada (+)</option>
+    <option value="-">Saída (-)</option>
+  </select>
+  <button class="btn" type="submit">Cadastrar</button>
+</form>
+
+<h3>Existentes</h3>
+<table>
+  <tr><th>ID</th><th>Descrição</th><th>Sinal</th></tr>
+  {% for t in tipos %}
+    <tr><td>{{ t.id }}</td><td>{{ t.descricao }}</td><td>{{ t.sinal }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

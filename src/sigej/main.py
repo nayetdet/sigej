@@ -11,6 +11,22 @@ from src.sigej.routes.equipes import bp as equipes_bp
 from src.sigej.routes.funcionarios import bp as funcionarios_bp
 from src.sigej.routes.setores import bp as setores_bp
 from src.sigej.routes.tipos_funcionario import bp as tipos_funcionario_bp
+from src.sigej.routes.cadastros_index import bp as cadastros_index_bp
+from src.sigej.routes.categorias import bp as categorias_bp
+from src.sigej.routes.unidades_medida import bp as unidades_bp
+from src.sigej.routes.marcas import bp as marcas_bp
+from src.sigej.routes.fornecedores import bp as fornecedores_bp
+from src.sigej.routes.cores import bp as cores_bp
+from src.sigej.routes.tamanhos import bp as tamanhos_bp
+from src.sigej.routes.produtos import bp as produtos_bp
+from src.sigej.routes.produto_variacoes import bp as variacoes_bp
+from src.sigej.routes.locais_estoque import bp as locais_estoque_bp
+from src.sigej.routes.tipos_movimento import bp as tipos_movimento_bp
+from src.sigej.routes.status_os import bp as status_os_bp
+from src.sigej.routes.equipe_membros import bp as equipe_membros_bp
+from src.sigej.routes.itens_os import bp as itens_os_bp
+from src.sigej.routes.andamentos_os import bp as andamentos_os_bp
+from src.sigej.routes.movimentos_estoque import bp as movimentos_bp
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -27,6 +43,22 @@ def create_app() -> Flask:
     app.register_blueprint(tipos_funcionario_bp)
     app.register_blueprint(equipes_bp)
     app.register_blueprint(funcionarios_bp)
+    app.register_blueprint(cadastros_index_bp)
+    app.register_blueprint(categorias_bp)
+    app.register_blueprint(unidades_bp)
+    app.register_blueprint(marcas_bp)
+    app.register_blueprint(fornecedores_bp)
+    app.register_blueprint(cores_bp)
+    app.register_blueprint(tamanhos_bp)
+    app.register_blueprint(produtos_bp)
+    app.register_blueprint(variacoes_bp)
+    app.register_blueprint(locais_estoque_bp)
+    app.register_blueprint(tipos_movimento_bp)
+    app.register_blueprint(status_os_bp)
+    app.register_blueprint(equipe_membros_bp)
+    app.register_blueprint(itens_os_bp)
+    app.register_blueprint(andamentos_os_bp)
+    app.register_blueprint(movimentos_bp)
     return app
 
 if __name__ == "__main__":

@@ -44,17 +44,13 @@ class OrdemServicoDAO(BaseDAO):
     def update_status(self, os_id: int, novo_status_id: int, conn=None):
         self._execute("UPDATE ordem_servico SET status_id = %s WHERE id = %s", [novo_status_id, os_id], conn=conn)
 
-    def em_aberto_por_prioridade_area(self) -> list[tuple]:
-        return self._fetchall(
+    def list_all(self) -> list[OrdemServico]:
+        rows = self._fetchall(
             """
-            SELECT os.id, os.numero_sequencial, os.prioridade, ac.descricao AS area, tos.descricao AS tipo_servico,
-                   p.nome AS solicitante, os.data_abertura
-            FROM ordem_servico os
-            JOIN area_campus ac ON os.area_campus_id = ac.id
-            JOIN tipo_ordem_servico tos ON os.tipo_os_id = tos.id
-            JOIN status_ordem_servico sts ON os.status_id = sts.id
-            JOIN pessoa p ON os.solicitante_id = p.id
-            WHERE sts.descricao IN ('aberta', 'em_atendimento', 'aguardando_material')
-            ORDER BY os.prioridade ASC, os.data_abertura ASC
+            SELECT id, numero_sequencial, solicitante_id, area_campus_id, tipo_os_id,
+                   equipe_id, lider_id, status_id, prioridade, data_abertura, data_prevista, descricao_problema
+            FROM ordem_servico
+            ORDER BY data_abertura DESC
             """
         )
+        return [OrdemServico(*row) for row in rows]

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, List
 from src.sigej.daos.andamento_ordem_servico_dao import AndamentoOrdemServicoDAO
 from src.sigej.daos.area_campus_dao import AreaCampusDAO
 from src.sigej.daos.equipe_manutencao_dao import EquipeManutencaoDAO
@@ -7,6 +7,7 @@ from src.sigej.daos.funcionario_dao import FuncionarioDAO
 from src.sigej.daos.item_ordem_servico_dao import ItemOrdemServicoDAO
 from src.sigej.daos.ordem_servico_dao import OrdemServicoDAO
 from src.sigej.daos.pessoa_dao import PessoaDAO
+from src.sigej.daos.produto_variacao_dao import ProdutoVariacaoDAO
 from src.sigej.daos.status_ordem_servico_dao import StatusOrdemServicoDAO
 from src.sigej.daos.tipo_ordem_servico_dao import TipoOrdemServicoDAO
 from src.sigej.models.andamento_ordem_servico import AndamentoOrdemServico
@@ -25,7 +26,8 @@ class OrdemServicoService:
         tipo_os_dao: TipoOrdemServicoDAO,
         equipe_dao: EquipeManutencaoDAO,
         funcionario_dao: FuncionarioDAO,
-        status_dao: StatusOrdemServicoDAO
+        status_dao: StatusOrdemServicoDAO,
+        produto_variacao_dao: Optional[ProdutoVariacaoDAO] = None,
     ):
         self.__os_dao = os_dao
         self.__item_dao = item_dao
@@ -36,6 +38,7 @@ class OrdemServicoService:
         self.__equipe_dao = equipe_dao
         self.__funcionario_dao = funcionario_dao
         self.__status_dao = status_dao
+        self.__produto_variacao_dao = produto_variacao_dao
 
     def abrir_os(
         self,
@@ -114,7 +117,7 @@ class OrdemServicoService:
         descricao: str,
         inicio_atendimento: Optional[datetime] = None,
         fim_atendimento: Optional[datetime] = None,
-    ):
+    ) -> None:
         os = self.__os_dao.find_by_id(os_id)
         if not os:
             raise ValueError("OS não encontrada.")
@@ -138,5 +141,28 @@ class OrdemServicoService:
             self.__andamento_dao.insert(andamento, conn=conn)
             conn.commit()
 
-    def timeline(self, os_id: int):
+    def timeline(self, os_id: int) -> List[tuple]:
         return self.__andamento_dao.timeline(os_id)
+
+    def listar(self) -> List[OrdemServico]:
+        return self.__os_dao.list_all()
+
+    def adicionar_item(
+        self, os_id: int, produto_variacao_id: int, quantidade_prevista: Optional[float], quantidade_usada: Optional[float]
+    ) -> int:
+        os = self.__os_dao.find_by_id(os_id)
+        if not os:
+            raise ValueError("OS não encontrada.")
+        if self.__produto_variacao_dao and not self.__produto_variacao_dao.find_by_id(produto_variacao_id):
+            raise ValueError("Produto variação não encontrado.")
+
+        item = ItemOrdemServico(
+            os_id=os_id,
+            produto_variacao_id=produto_variacao_id,
+            quantidade_prevista=quantidade_prevista,
+            quantidade_usada=quantidade_usada,
+        )
+        return self.__item_dao.insert(item)
+
+    def listar_itens(self, os_id: int) -> List[ItemOrdemServico]:
+        return self.__item_dao.list_by_os(os_id)

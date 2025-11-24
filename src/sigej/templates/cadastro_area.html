@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h2>Cadastro de área do campus</h2>
-<p>Precisa de um novo tipo? <a href="{{ url_for('tipos_area_bp.tipos_area') }}">Cadastre aqui</a>.</p>
+<div class="hint">
+  Precisa de tipos? <a href="{{ url_for('tipos_area_bp.tipos_area') }}">Cadastrar tipo de área</a>.
+</div>
 <form method="post" class="card">
   <label>Descrição</label>
   <input name="descricao" required>

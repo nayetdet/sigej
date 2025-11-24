@@ -1,10 +1,11 @@
 from datetime import date
+from typing import List
+
 from src.sigej.daos.funcionario_dao import FuncionarioDAO
 from src.sigej.daos.pessoa_dao import PessoaDAO
 from src.sigej.daos.setor_dao import SetorDAO
 from src.sigej.daos.tipo_funcionario_dao import TipoFuncionarioDAO
 from src.sigej.models.funcionario import Funcionario
-from src.sigej.models.pessoa import Pessoa
 
 class FuncionarioService:
     def __init__(
@@ -12,15 +13,12 @@ class FuncionarioService:
             pessoa_dao: PessoaDAO,
             funcionario_dao: FuncionarioDAO,
             setor_dao: SetorDAO,
-            tipo_funcionario_dao: TipoFuncionarioDAO
+        tipo_funcionario_dao: TipoFuncionarioDAO
     ):
         self.__pessoa_dao = pessoa_dao
         self.__funcionario_dao = funcionario_dao
         self.__setor_dao = setor_dao
         self.__tipo_funcionario_dao = tipo_funcionario_dao
-
-    def cadastrar_pessoa(self, pessoa: Pessoa) -> int:
-        return self.__pessoa_dao.insert(pessoa)
 
     def admitir(self, pessoa_id: int, tipo_funcionario_id: int, setor_id: int, data_admissao: date) -> int:
         if not self.__pessoa_dao.find_by_id(pessoa_id):
@@ -39,10 +37,10 @@ class FuncionarioService:
 
         return self.__funcionario_dao.insert(funcionario)
 
-    def demitir(self, funcionario_id: int, data_demissao: date):
+    def demitir(self, funcionario_id: int, data_demissao: date) -> None:
         if not self.__funcionario_dao.find_by_id(funcionario_id):
             raise ValueError("Funcionário não encontrado.")
         self.__funcionario_dao.demitir(funcionario_id, data_demissao)
 
-    def listar(self):
+    def listar(self) -> List[Funcionario]:
         return self.__funcionario_dao.list_all()

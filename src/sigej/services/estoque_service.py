@@ -1,6 +1,6 @@
 from datetime import datetime
 from decimal import Decimal
-from typing import Optional
+from typing import Optional, List, Tuple
 from src.sigej.daos.estoque_dao import EstoqueDAO
 from src.sigej.daos.local_estoque_dao import LocalEstoqueDAO
 from src.sigej.daos.movimento_estoque_dao import MovimentoEstoqueDAO
@@ -68,5 +68,8 @@ class EstoqueService:
             conn.commit()
             return movimento_id
 
-    def materiais_abaixo_ponto_reposicao(self):
+    def materiais_abaixo_ponto_reposicao(self) -> List[Tuple]:
         return self.__estoque_dao.abaixo_ponto_reposicao()
+
+    def listar_movimentos(self) -> List[Tuple]:
+        return self.__movimento_dao.list_all()

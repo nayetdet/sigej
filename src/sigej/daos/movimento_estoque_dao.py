@@ -24,3 +24,17 @@ class MovimentoEstoqueDAO(BaseDAO):
             ],
             conn=conn,
         )
+
+    def list_all(self) -> list[tuple]:
+        return self._fetchall(
+            """
+            SELECT me.id, me.data_hora, tm.descricao, tm.sinal,
+                   pv.codigo_interno, le.descricao AS local, me.quantidade,
+                   me.funcionario_id, me.ordem_servico_id, me.observacao
+            FROM movimento_estoque me
+            JOIN tipo_movimento_estoque tm ON me.tipo_movimento_id = tm.id
+            JOIN produto_variacao pv ON me.produto_variacao_id = pv.id
+            JOIN local_estoque le ON me.local_estoque_id = le.id
+            ORDER BY me.data_hora DESC
+            """
+        )

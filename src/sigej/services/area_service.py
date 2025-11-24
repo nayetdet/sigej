@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from src.sigej.daos.area_campus_dao import AreaCampusDAO
 from src.sigej.daos.tipo_area_campus_dao import TipoAreaCampusDAO
 from src.sigej.models.area_campus import AreaCampus
@@ -9,10 +9,10 @@ class AreaService:
         self.__area_dao = area_dao
         self.__tipo_area_dao = tipo_area_dao
 
-    def listar_areas(self):
+    def listar_areas(self) -> List[AreaCampus]:
         return self.__area_dao.list_all()
 
-    def listar_tipos(self):
+    def listar_tipos(self) -> List[TipoAreaCampus]:
         return self.__tipo_area_dao.list_all()
 
     def criar_area(self, descricao: str, bloco: Optional[str] = None, tipo_area_id: Optional[int] = None) -> int:

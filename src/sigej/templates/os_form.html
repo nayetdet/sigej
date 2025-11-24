@@ -7,7 +7,14 @@
   select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
 </style>
 
-<h2>Abrir OS</h2>
+<h2>Abrir ordem de serviço</h2>
+<div class="hint">
+  Precisa cadastrar algo antes? <a href="{{ url_for('solicitantes_bp.solicitantes') }}">Solicitantes</a>,
+  <a href="{{ url_for('areas_bp.areas') }}">Áreas</a>,
+  <a href="{{ url_for('tipos_os_bp.tipos_os') }}">Tipos de OS</a>,
+  <a href="{{ url_for('equipes_bp.equipes') }}">Equipes</a>,
+  <a href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Líderes</a>.
+</div>
 <form method="post" class="card">
   <input type="hidden" name="action" value="abrir_os">
   <label>Solicitante</label>
@@ -58,13 +65,4 @@
 
   <button class="btn" type="submit">Criar OS</button>
 </form>
-
-<p>Precisa cadastrar um dado antes? Use os links abaixo.</p>
-<div class="grid">
-  <a class="btn" href="{{ url_for('solicitantes_bp.solicitantes') }}">Cadastrar solicitante</a>
-  <a class="btn" href="{{ url_for('areas_bp.areas') }}">Cadastrar área</a>
-  <a class="btn" href="{{ url_for('tipos_os_bp.tipos_os') }}">Cadastrar tipo de OS</a>
-  <a class="btn" href="{{ url_for('equipes_bp.equipes') }}">Cadastrar equipe</a>
-  <a class="btn" href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Cadastrar líder</a>
-</div>
 {% endblock %}

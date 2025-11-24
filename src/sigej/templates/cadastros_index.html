@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastros</h2>
+<p>Selecione o cadastro que deseja preencher ou consultar.</p>
+<div class="grid">
+  <a class="btn" href="{{ url_for('solicitantes_bp.solicitantes') }}">Solicitantes</a>
+  <a class="btn" href="{{ url_for('areas_bp.areas') }}">Áreas</a>
+  <a class="btn" href="{{ url_for('tipos_area_bp.tipos_area') }}">Tipos de área</a>
+  <a class="btn" href="{{ url_for('tipos_os_bp.tipos_os') }}">Tipos de OS</a>
+  <a class="btn" href="{{ url_for('setores_bp.setores') }}">Setores</a>
+  <a class="btn" href="{{ url_for('tipos_funcionario_bp.tipos_funcionario') }}">Tipos de funcionário</a>
+  <a class="btn" href="{{ url_for('equipes_bp.equipes') }}">Equipes</a>
+  <a class="btn" href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Funcionários</a>
+  <a class="btn" href="{{ url_for('categorias_bp.categorias') }}">Categorias de material</a>
+  <a class="btn" href="{{ url_for('unidades_bp.unidades') }}">Unidades de medida</a>
+  <a class="btn" href="{{ url_for('marcas_bp.marcas') }}">Marcas</a>
+  <a class="btn" href="{{ url_for('fornecedores_bp.fornecedores') }}">Fornecedores</a>
+  <a class="btn" href="{{ url_for('cores_bp.cores') }}">Cores</a>
+  <a class="btn" href="{{ url_for('tamanhos_bp.tamanhos') }}">Tamanhos</a>
+  <a class="btn" href="{{ url_for('produtos_bp.produtos') }}">Produtos</a>
+  <a class="btn" href="{{ url_for('variacoes_bp.variacoes') }}">Variações de produto</a>
+  <a class="btn" href="{{ url_for('locais_estoque_bp.locais_estoque') }}">Locais de estoque</a>
+  <a class="btn" href="{{ url_for('tipos_movimento_bp.tipos_movimento') }}">Tipos de movimento</a>
+  <a class="btn" href="{{ url_for('status_os_bp.status_os') }}">Status de OS</a>
+  <a class="btn" href="{{ url_for('equipe_membros_bp.equipe_membros') }}">Equipe - membros</a>
+  <a class="btn" href="{{ url_for('itens_os_bp.itens_os') }}">Itens de OS</a>
+  <a class="btn" href="{{ url_for('andamentos_os_bp.andamentos_os') }}">Andamentos de OS</a>
+  <a class="btn" href="{{ url_for('movimentos_bp.movimentos') }}">Movimentos de estoque</a>
+</div>
+{% endblock %}
