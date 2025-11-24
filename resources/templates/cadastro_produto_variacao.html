@@ -39,26 +39,30 @@
 </form>
 
 <h3>Variações por produto</h3>
-{% for p in produtos %}
-  <div class="card">
-    <strong>{{ p.descricao }}</strong>
+{% if not produtos %}
+  <p>Cadastre um produto primeiro.</p>
+{% elif total_variacoes == 0 %}
+  <p>Nenhuma variação cadastrada ainda.</p>
+{% else %}
+  {% for p in produtos %}
     {% set variacoes = variacoes_por_produto.get(p.id, []) %}
     {% if variacoes %}
-      <table>
-        <tr><th>ID</th><th>Cor</th><th>Tamanho</th><th>Cód. barras</th><th>Cód. interno</th></tr>
-        {% for v in variacoes %}
-          <tr>
-            <td>{{ v.id }}</td>
-            <td>{{ v.cor_id }}</td>
-            <td>{{ v.tamanho_id }}</td>
-            <td>{{ v.codigo_barras }}</td>
-            <td>{{ v.codigo_interno }}</td>
-          </tr>
-        {% endfor %}
-      </table>
-    {% else %}
-      <p>Sem variações.</p>
+      <div class="card">
+        <strong>{{ p.descricao }}</strong>
+        <table>
+          <tr><th>ID</th><th>Cor</th><th>Tamanho</th><th>Cód. barras</th><th>Cód. interno</th></tr>
+          {% for v in variacoes %}
+            <tr>
+              <td>{{ v.id }}</td>
+              <td>{{ v.cor_id }}</td>
+              <td>{{ v.tamanho_id }}</td>
+              <td>{{ v.codigo_barras }}</td>
+              <td>{{ v.codigo_interno }}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
     {% endif %}
-  </div>
-{% endfor %}
+  {% endfor %}
+{% endif %}
 {% endblock %}

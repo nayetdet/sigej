@@ -10,3 +10,7 @@ class CategoriaMaterialDAO(BaseDAO):
     def list_all(self) -> list[CategoriaMaterial]:
         rows = self._fetchall("SELECT id, nome FROM categoria_material ORDER BY nome")
         return [CategoriaMaterial(*row) for row in rows]
+
+    def find_by_id(self, categoria_id: int) -> CategoriaMaterial:
+        row = self._fetchone("SELECT id, nome FROM categoria_material WHERE id = %s", [categoria_id])
+        return CategoriaMaterial(*row) if row else None

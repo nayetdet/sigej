@@ -33,10 +33,12 @@ def variacoes():
 
     produtos = produto_service.listar()
     variacoes_por_produto = {p.id: variacao_service.listar_por_produto(p.id) for p in produtos}
+    total_variacoes = sum(len(v) for v in variacoes_por_produto.values())
     return render_template(
         "cadastro_produto_variacao.html",
         produtos=produtos,
         cores=ServiceInstance.get_cor_service().listar(),
         tamanhos=ServiceInstance.get_tamanho_service().listar(),
         variacoes_por_produto=variacoes_por_produto,
+        total_variacoes=total_variacoes,
     )

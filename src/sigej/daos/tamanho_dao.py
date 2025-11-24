@@ -11,3 +11,7 @@ class TamanhoDAO(BaseDAO):
     def list_all(self) -> list[Tamanho]:
         rows = self._fetchall("SELECT id, descricao FROM tamanho ORDER BY descricao")
         return [Tamanho(*row) for row in rows]
+
+    def find_by_id(self, tamanho_id: int) -> Tamanho:
+        row = self._fetchone("SELECT id, descricao FROM tamanho WHERE id = %s", [tamanho_id])
+        return Tamanho(*row) if row else None

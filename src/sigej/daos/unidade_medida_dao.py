@@ -11,3 +11,7 @@ class UnidadeMedidaDAO(BaseDAO):
     def list_all(self) -> list[UnidadeMedida]:
         rows = self._fetchall("SELECT id, sigla, descricao FROM unidade_medida ORDER BY sigla")
         return [UnidadeMedida(*row) for row in rows]
+
+    def find_by_id(self, unidade_id: int) -> UnidadeMedida:
+        row = self._fetchone("SELECT id, sigla, descricao FROM unidade_medida WHERE id = %s", [unidade_id])
+        return UnidadeMedida(*row) if row else None

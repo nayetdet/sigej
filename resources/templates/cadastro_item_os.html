@@ -31,11 +31,15 @@
   <h3>Itens da OS {{ os_id }}</h3>
   {% if itens %}
     <table>
-      <tr><th>ID</th><th>Variação</th><th>Qtd prevista</th><th>Qtd usada</th></tr>
+      <tr><th>ID</th><th>Produto</th><th>Cor</th><th>Tamanho</th><th>Qtd prevista</th><th>Qtd usada</th></tr>
       {% for i in itens %}
         <tr>
           <td>{{ i.id }}</td>
-          <td>{{ i.produto_variacao_id }}</td>
+          {% set v = variacoes_dict.get(i.produto_variacao_id) %}
+          {% set prod = produtos.get(v.produto_id) if v else None %}
+          <td>{{ v.produto_id if v else '' }} — {{ prod.descricao if prod else '' }}</td>
+          <td>{{ v.cor_id if v else '' }}</td>
+          <td>{{ v.tamanho_id if v else '' }}</td>
           <td>{{ i.quantidade_prevista }}</td>
           <td>{{ i.quantidade_usada }}</td>
         </tr>

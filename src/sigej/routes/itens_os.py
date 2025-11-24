@@ -8,6 +8,7 @@ bp = Blueprint("itens_os_bp", __name__)
 def itens_os():
     os_id_param = ParseUtils.to_int(request.args.get("os_id", "") or "")
     item_service = ServiceInstance.get_ordem_servico_service()
+    ordens = item_service.listar()
 
     if request.method == "POST":
         os_id = ParseUtils.to_int(request.form.get("os_id", ""))
@@ -32,13 +33,17 @@ def itens_os():
             flash(f"Erro ao adicionar item: {exc}")
         return redirect(url_for("itens_os_bp.itens_os", os_id=os_id))
 
-    os_selecionada = os_id_param
+    os_selecionada = os_id_param or (ordens[0].id if ordens else None)
     itens = item_service.listar_itens(os_selecionada) if os_selecionada else []
+    variacoes = ServiceInstance.get_produto_variacao_service().listar_todas()
+    variacoes_dict = {v.id: v for v in variacoes}
+    produtos = {p.id: p for p in ServiceInstance.get_produto_service().listar()}
     return render_template(
         "cadastro_item_os.html",
         os_id=os_selecionada,
         itens=itens,
-        ordens=ServiceInstance.get_ordem_servico_service().listar(),
-        variacoes=ServiceInstance.get_produto_variacao_service().listar_todas(),
-        produtos=ServiceInstance.get_produto_service().listar(),
+        ordens=ordens,
+        variacoes=variacoes,
+        variacoes_dict=variacoes_dict,
+        produtos=produtos,
     )
