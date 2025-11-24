@@ -15,7 +15,13 @@ def pessoas():
             flash("Nome é obrigatório.")
         else:
             try:
-                ServiceInstance.get_pessoa_service().cadastrar(nome=nome, cpf=cpf, email=email, telefone=telefone)
+                ServiceInstance.get_pessoa_service().cadastrar(
+                    nome=nome,
+                    cpf=cpf,
+                    email=email,
+                    telefone=telefone
+                )
+
                 flash("Pessoa cadastrada com sucesso.")
                 return redirect(url_for("pessoas_bp.pessoas"))
             except Exception as exc:

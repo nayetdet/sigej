@@ -13,7 +13,7 @@ class Database:
         return self.__pool.connection()
 
     def __load_schema(self):
-        schema_path = Config.Paths.SCRIPTS / "schema.sql"
+        schema_path = Config.Paths.SCRIPTS_SQL / "schema.sql"
         if not schema_path.exists():
             raise FileNotFoundError(f"Arquivo 'schema.sql' não encontrado no caminho: {schema_path}.")
 

@@ -19,5 +19,5 @@ def tipos_os():
 
     return render_template(
         "cadastro_tipo_os.html",
-        tipos=ServiceInstance.get_tipo_os_service().listar(),
+        tipos=ServiceInstance.get_tipo_os_service().listar()
     )

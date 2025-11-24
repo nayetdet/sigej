@@ -26,6 +26,7 @@ def nova_os():
                 prioridade=prioridade or 3,
                 descricao_problema=descricao or "Sem descrição.",
             )
+
             flash(f"OS criada com ID {os_id}")
             return redirect(url_for("home_bp.home"))
         except Exception as exc:

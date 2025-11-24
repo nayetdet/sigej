@@ -15,8 +15,12 @@ def solicitantes():
             return redirect(url_for("solicitantes_bp.solicitantes"))
         try:
             pessoa_id = ServiceInstance.get_pessoa_service().cadastrar(
-                nome=nome, cpf=cpf, email=email, telefone=telefone
+                nome=nome,
+                cpf=cpf,
+                email=email,
+                telefone=telefone
             )
+
             flash(f"Solicitante cadastrado com ID {pessoa_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar solicitante: {exc}")

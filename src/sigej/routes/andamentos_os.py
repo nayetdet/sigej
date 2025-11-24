@@ -8,7 +8,6 @@ bp = Blueprint("andamentos_os_bp", __name__)
 @bp.route("/andamentos-os", methods=["GET", "POST"])
 def andamentos_os():
     os_service = ServiceInstance.get_ordem_servico_service()
-
     if request.method == "POST":
         os_id = ParseUtils.to_int(request.form.get("os_id", ""))
         novo_status_id = ParseUtils.to_int(request.form.get("status_id", ""))

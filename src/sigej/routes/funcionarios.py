@@ -23,6 +23,7 @@ def cadastro_funcionario():
                 setor_id=setor_id,
                 data_admissao=data_adm,
             )
+
             flash(f"Funcionário cadastrado com ID {func_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar funcionário: {exc}")

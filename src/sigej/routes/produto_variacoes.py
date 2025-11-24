@@ -26,6 +26,7 @@ def variacoes():
                 codigo_barras=codigo_barras,
                 codigo_interno=codigo_interno,
             )
+
             flash(f"Variação cadastrada com ID {variacao_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar variação: {exc}")

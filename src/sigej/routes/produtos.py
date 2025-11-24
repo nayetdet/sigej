@@ -21,6 +21,7 @@ def produtos():
                 unidade_medida_id=unidade_id,
                 marca_id=marca_id,
             )
+
             flash(f"Produto cadastrado com ID {produto_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar produto: {exc}")

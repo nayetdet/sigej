@@ -9,3 +9,8 @@ dependencies = [
     "python-dotenv>=1.2.1",
     "flask>=3.0.3",
 ]
+
+[dependency-groups]
+scripts = [
+    "faker>=38.2.0",
+]

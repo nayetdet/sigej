@@ -28,6 +28,7 @@ def itens_os():
                 quantidade_prevista=qtd_prevista,
                 quantidade_usada=qtd_usada,
             )
+
             flash(f"Item adicionado com ID {item_id}.")
         except Exception as exc:
             flash(f"Erro ao adicionar item: {exc}")

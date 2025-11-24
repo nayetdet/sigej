@@ -30,6 +30,7 @@ def equipe_membros():
                 funcao=funcao,
                 data_fim=data_fim,
             )
+
             flash(f"Membro adicionado com ID {membro_id}.")
         except Exception as exc:
             flash(f"Erro ao adicionar membro: {exc}")

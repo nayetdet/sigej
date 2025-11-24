@@ -14,8 +14,10 @@ def locais_estoque():
             return redirect(url_for("locais_estoque_bp.locais_estoque"))
         try:
             local_id = ServiceInstance.get_local_estoque_service().criar(
-                descricao=descricao, responsavel_id=responsavel_id
+                descricao=descricao,
+                responsavel_id=responsavel_id
             )
+
             flash(f"Local cadastrado com ID {local_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar local: {exc}")

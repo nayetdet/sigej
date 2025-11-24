@@ -15,8 +15,11 @@ def areas():
             return redirect(url_for("areas_bp.areas"))
         try:
             area_id = ServiceInstance.get_area_service().criar_area(
-                descricao=descricao, bloco=bloco, tipo_area_id=tipo_area_id
+                descricao=descricao,
+                bloco=bloco,
+                tipo_area_id=tipo_area_id
             )
+
             flash(f"Área cadastrada com ID {area_id}.")
         except Exception as exc:
             flash(f"Erro ao cadastrar área: {exc}")

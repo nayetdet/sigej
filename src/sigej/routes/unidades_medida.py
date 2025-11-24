@@ -20,5 +20,5 @@ def unidades():
 
     return render_template(
         "cadastro_unidade.html",
-        unidades=ServiceInstance.get_unidade_medida_service().listar(),
+        unidades=ServiceInstance.get_unidade_medida_service().listar()
     )

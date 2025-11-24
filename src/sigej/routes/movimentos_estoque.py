@@ -34,6 +34,7 @@ def movimentos():
                 os_id=os_id,
                 observacao=observacao,
             )
+
             flash(f"Movimento registrado com ID {mov_id}.")
         except Exception as exc:
             flash(f"Erro ao registrar movimento: {exc}")

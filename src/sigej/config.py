@@ -23,3 +23,4 @@ class Config:
         RESOURCES_STATIC_CSS: Path = RESOURCES_STATIC / "css"
         RESOURCES_TEMPLATES: Path = RESOURCES_STATIC / "templates"
         SCRIPTS: Path = ROOT / "scripts"
+        SCRIPTS_SQL: Path = SCRIPTS / "sql"
