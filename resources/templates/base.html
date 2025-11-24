@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SIGEJ</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+<header>
+  <nav>
+    <a href="{{ url_for('home_bp.home') }}">Início</a>
+    <a href="{{ url_for('os_bp.nova_os') }}">Abrir OS</a>
+    <a href="{{ url_for('pessoas_bp.pessoas') }}">Pessoas</a>
+    <a href="{{ url_for('cadastros_index_bp.cadastros') }}">Cadastros</a>
+    <a href="{{ url_for('movimentos_bp.movimentos') }}">Movimentos de estoque</a>
+    <span class="brand">SIGEJ — Sistema de Gestão de Jardinagem e Manutenção</span>
+  </nav>
+</header>
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for m in messages %}
+        <div class="flash">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

@@ -29,7 +29,12 @@ from src.sigej.routes.andamentos_os import bp as andamentos_os_bp
 from src.sigej.routes.movimentos_estoque import bp as movimentos_bp
 
 def create_app() -> Flask:
-    app = Flask(__name__)
+    app = Flask(
+        __name__,
+        template_folder=str(Config.Paths.ROOT / "resources" / "templates"),
+        static_folder=str(Config.Paths.ROOT / "resources" / "static"),
+        static_url_path="/static",
+    )
     app.config["SECRET_KEY"] = Config.Flask.SECRET_KEY
 
     app.register_blueprint(home_bp)
