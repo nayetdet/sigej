@@ -159,8 +159,6 @@ http://localhost:5000
 
 ## Consultas e relatórios SQL
 
-As consultas obrigatórias da disciplina são implementadas como SQL puro nos DAOs, e também estão documentadas no relatório em LaTeX (`relatorio_sigej.tex`):
-
 1. **Ordens de serviço em aberto por prioridade e área**
 2. **Materiais abaixo do ponto de reposição**
 3. **Timeline de uma OS**
@@ -178,14 +176,12 @@ As consultas obrigatórias da disciplina são implementadas como SQL puro nos DA
 ├── docker-compose.yml         # Serviço PostgreSQL de desenvolvimento
 ├── Makefile                   # Comandos de atalho (install/run/seed)
 ├── pyproject.toml             # Metadados e dependências Python
-├── relatorio_sigej.tex        # Relatório acadêmico (LaTeX)
 ├── resources/
 │   ├── static/                # CSS e assets
 │   └── templates/             # Templates HTML (Flask)
 ├── scripts/
 │   ├── sql/schema.sql         # Criação do schema PostgreSQL
-│   ├── seed.py                # Seed de dados de exemplo
-│   └── generate_report.py     # Geração de relatório PDF (opcional)
+│   └── seed.py                # Seed de dados de exemplo
 ├── src/
 │   └── sigej/
 │       ├── daos/              # DAOs com SQL explícito
