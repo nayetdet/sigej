@@ -1,4 +1,5 @@
 from typing import Optional
+from datetime import datetime
 from src.sigej.daos.base_dao import BaseDAO
 from src.sigej.models.ordem_servico import OrdemServico
 
@@ -43,6 +44,9 @@ class OrdemServicoDAO(BaseDAO):
 
     def update_status(self, os_id: int, novo_status_id: int, conn=None):
         self._execute("UPDATE ordem_servico SET status_id = %s WHERE id = %s", [novo_status_id, os_id], conn=conn)
+
+    def update_data_abertura(self, os_id: int, data_abertura: datetime, conn=None):
+        self._execute("UPDATE ordem_servico SET data_abertura = %s WHERE id = %s", [data_abertura, os_id], conn=conn)
 
     def list_all(self) -> list[OrdemServico]:
         rows = self._fetchall(

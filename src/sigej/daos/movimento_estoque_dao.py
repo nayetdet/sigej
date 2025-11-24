@@ -1,3 +1,5 @@
+from datetime import datetime
+from typing import Optional
 from src.sigej.daos.base_dao import BaseDAO
 from src.sigej.models.movimento_estoque import MovimentoEstoque
 
@@ -37,4 +39,11 @@ class MovimentoEstoqueDAO(BaseDAO):
             JOIN local_estoque le ON me.local_estoque_id = le.id
             ORDER BY me.data_hora DESC
             """
+        )
+
+    def atualizar_data_e_os(self, mov_id: int, data_hora: datetime, os_id: Optional[int], conn=None):
+        self._execute(
+            "UPDATE movimento_estoque SET data_hora = %s, ordem_servico_id = %s WHERE id = %s",
+            [data_hora, os_id, mov_id],
+            conn=conn,
         )
