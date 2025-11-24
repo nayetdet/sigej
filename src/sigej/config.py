@@ -2,6 +2,9 @@ from os import getenv
 from pathlib import Path
 
 class Config:
+    class Flask:
+        SECRET_KEY = getenv("FLASK_SECRET_KEY")
+
     class Database:
         HOST = getenv("DATABASE_HOST")
         PORT = getenv("DATABASE_PORT")

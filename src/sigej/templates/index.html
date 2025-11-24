@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Ordens de Serviço em Aberto</h2>
+{% if os_abertas %}
+<table>
+  <tr>
+    <th>ID</th><th>Número</th><th>Prioridade</th><th>Área</th><th>Tipo</th><th>Solicitante</th><th>Abertura</th>
+  </tr>
+  {% for row in os_abertas %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3] }}</td>
+      <td>{{ row[4] }}</td>
+      <td>{{ row[5] }}</td>
+      <td>{{ row[6] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Nenhuma OS em aberto.</p>
+{% endif %}
+
+<h2>Materiais abaixo do ponto de reposição</h2>
+{% if materiais_baixos %}
+<table>
+  <tr><th>Produto</th><th>Cód. Interno</th><th>Local</th><th>Qtd</th><th>Ponto reposição</th></tr>
+  {% for row in materiais_baixos %}
+    <tr>
+      <td>{{ row[0] }}</td>
+      <td>{{ row[1] }}</td>
+      <td>{{ row[2] }}</td>
+      <td>{{ row[3] }}</td>
+      <td>{{ row[4] }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+<p>Nenhum material abaixo do ponto de reposição.</p>
+{% endif %}
+{% endblock %}

@@ -1,10 +1,15 @@
 from typing import Optional
-from src.sigej.deps import DAOInstance
+from src.sigej.deps.dao_instance import DAOInstance
 from src.sigej.services.estoque_service import EstoqueService
 from src.sigej.services.funcionario_service import FuncionarioService
 from src.sigej.services.ordem_servico_service import OrdemServicoService
 from src.sigej.services.pessoa_service import PessoaService
 from src.sigej.services.relatorios_service import RelatoriosService
+from src.sigej.services.area_service import AreaService
+from src.sigej.services.tipo_os_service import TipoOSService
+from src.sigej.services.equipe_service import EquipeService
+from src.sigej.services.setor_service import SetorService
+from src.sigej.services.tipo_funcionario_service import TipoFuncionarioService
 
 class ServiceInstance:
     __pessoa_service: Optional[PessoaService] = None
@@ -12,6 +17,11 @@ class ServiceInstance:
     __ordem_servico_service: Optional[OrdemServicoService] = None
     __estoque_service: Optional[EstoqueService] = None
     __relatorios_service: Optional[RelatoriosService] = None
+    __area_service: Optional[AreaService] = None
+    __tipo_os_service: Optional[TipoOSService] = None
+    __equipe_service: Optional[EquipeService] = None
+    __setor_service: Optional[SetorService] = None
+    __tipo_funcionario_service: Optional[TipoFuncionarioService] = None
 
     @classmethod
     def get_pessoa_service(cls) -> PessoaService:
@@ -63,3 +73,38 @@ class ServiceInstance:
         if cls.__relatorios_service is None:
             cls.__relatorios_service = RelatoriosService(relatorios_dao=DAOInstance.get_relatorios_dao())
         return cls.__relatorios_service
+
+    @classmethod
+    def get_area_service(cls) -> AreaService:
+        if cls.__area_service is None:
+            cls.__area_service = AreaService(
+                area_dao=DAOInstance.get_area_campus_dao(),
+                tipo_area_dao=DAOInstance.get_tipo_area_campus_dao(),
+            )
+        return cls.__area_service
+
+    @classmethod
+    def get_tipo_os_service(cls) -> TipoOSService:
+        if cls.__tipo_os_service is None:
+            cls.__tipo_os_service = TipoOSService(tipo_os_dao=DAOInstance.get_tipo_ordem_servico_dao())
+        return cls.__tipo_os_service
+
+    @classmethod
+    def get_equipe_service(cls) -> EquipeService:
+        if cls.__equipe_service is None:
+            cls.__equipe_service = EquipeService(equipe_dao=DAOInstance.get_equipe_manutencao_dao())
+        return cls.__equipe_service
+
+    @classmethod
+    def get_setor_service(cls) -> SetorService:
+        if cls.__setor_service is None:
+            cls.__setor_service = SetorService(setor_dao=DAOInstance.get_setor_dao())
+        return cls.__setor_service
+
+    @classmethod
+    def get_tipo_funcionario_service(cls) -> TipoFuncionarioService:
+        if cls.__tipo_funcionario_service is None:
+            cls.__tipo_funcionario_service = TipoFuncionarioService(
+                tipo_funcionario_dao=DAOInstance.get_tipo_funcionario_dao()
+            )
+        return cls.__tipo_funcionario_service

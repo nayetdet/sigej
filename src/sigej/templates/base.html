@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>SIGEJ</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f7f7f7; }
+    header { background: #2c3e50; color: #ecf0f1; padding: 12px 20px; }
+    nav { display: flex; flex-wrap: wrap; gap: 8px; }
+    nav a { color: #ecf0f1; text-decoration: none; padding: 4px 6px; background: rgba(255,255,255,0.04); border-radius: 4px; }
+    .container { max-width: 1100px; margin: 20px auto; background: #fff; padding: 20px; border-radius: 6px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+    table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    th { background: #f0f0f0; text-align: left; }
+    .flash { background: #ffe9b3; border: 1px solid #e0c176; padding: 8px; margin: 8px 0; border-radius: 4px; }
+    form label { display: block; margin: 8px 0 4px; }
+    form input, form textarea { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    .btn { display: inline-block; padding: 8px 12px; background: #2c3e50; color: #fff; border: none; border-radius: 4px; cursor: pointer; text-decoration: none; }
+    .card { border: 1px solid #e3e3e3; border-radius: 6px; padding: 12px; background: #fafafa; margin-top: 12px; }
+  </style>
+</head>
+<body>
+<header>
+  <nav>
+    <a href="{{ url_for('home_bp.home') }}">Início</a>
+    <a href="{{ url_for('pessoas_bp.pessoas') }}">Pessoas</a>
+    <a href="{{ url_for('os_bp.nova_os') }}">Abrir OS</a>
+    <a href="{{ url_for('solicitantes_bp.solicitantes') }}">Solicitantes</a>
+    <a href="{{ url_for('areas_bp.areas') }}">Áreas</a>
+    <a href="{{ url_for('tipos_area_bp.tipos_area') }}">Tipos de área</a>
+    <a href="{{ url_for('tipos_os_bp.tipos_os') }}">Tipos de OS</a>
+    <a href="{{ url_for('setores_bp.setores') }}">Setores</a>
+    <a href="{{ url_for('tipos_funcionario_bp.tipos_funcionario') }}">Tipos de funcionário</a>
+    <a href="{{ url_for('equipes_bp.equipes') }}">Equipes</a>
+    <a href="{{ url_for('funcionarios_bp.cadastro_funcionario') }}">Funcionários</a>
+  </nav>
+</header>
+<div class="container">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for m in messages %}
+        <div class="flash">{{ m }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</div>
+</body>
+</html>

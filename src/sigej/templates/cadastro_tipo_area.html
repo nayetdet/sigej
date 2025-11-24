@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de tipo de área</h2>
+<form method="post" class="card">
+  <label>Descrição</label>
+  <input name="descricao" required>
+  <button class="btn" type="submit">Cadastrar</button>
+</form>
+
+<h3>Existentes</h3>
+<table>
+  <tr><th>ID</th><th>Descrição</th></tr>
+  {% for t in tipos_area %}
+    <tr><td>{{ t.id }}</td><td>{{ t.descricao }}</td></tr>
+  {% endfor %}
+</table>
+{% endblock %}

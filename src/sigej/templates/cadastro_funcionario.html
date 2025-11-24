@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Cadastro de funcionário (líder)</h2>
+<p>Precisa de tipos ou setores? <a href="{{ url_for('tipos_funcionario_bp.tipos_funcionario') }}">Cadastre tipo</a> ou <a href="{{ url_for('setores_bp.setores') }}">cadastre setor</a>.</p>
+<form method="post" class="card">
+  <label>Pessoa</label>
+  <select name="pessoa_id" required>
+    <option value="">Selecione</option>
+    {% for p in pessoas %}
+      <option value="{{ p.id }}">{{ p.id }} — {{ p.nome }}</option>
+    {% endfor %}
+  </select>
+  <label>Tipo de funcionário</label>
+  <select name="tipo_funcionario_id" required>
+    <option value="">Selecione</option>
+    {% for t in tipos_funcionarios %}
+      <option value="{{ t.id }}">{{ t.id }} — {{ t.descricao }}</option>
+    {% endfor %}
+  </select>
+  <label>Setor</label>
+  <select name="setor_id" required>
+    <option value="">Selecione</option>
+    {% for s in setores %}
+      <option value="{{ s.id }}">{{ s.id }} — {{ s.nome }}</option>
+    {% endfor %}
+  </select>
+  <label>Data admissão</label>
+  <input type="date" name="data_admissao" value="{{ today.isoformat() }}">
+  <button class="btn" type="submit">Cadastrar</button>
+</form>
+
+<h3>Existentes</h3>
+<table>
+  <tr><th>ID</th><th>Pessoa</th><th>Tipo</th><th>Setor</th><th>Admissão</th></tr>
+  {% for f in funcionarios %}
+    <tr>
+      <td>{{ f.id }}</td>
+      <td>{{ f.pessoa_id }}</td>
+      <td>{{ f.tipo_funcionario_id }}</td>
+      <td>{{ f.setor_id }}</td>
+      <td>{{ f.data_admissao }}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}

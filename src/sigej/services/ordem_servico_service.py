@@ -1,6 +1,5 @@
 from datetime import datetime
 from typing import Optional
-
 from src.sigej.daos.andamento_ordem_servico_dao import AndamentoOrdemServicoDAO
 from src.sigej.daos.area_campus_dao import AreaCampusDAO
 from src.sigej.daos.equipe_manutencao_dao import EquipeManutencaoDAO
@@ -13,6 +12,7 @@ from src.sigej.daos.tipo_ordem_servico_dao import TipoOrdemServicoDAO
 from src.sigej.models.andamento_ordem_servico import AndamentoOrdemServico
 from src.sigej.models.item_ordem_servico import ItemOrdemServico
 from src.sigej.models.ordem_servico import OrdemServico
+from src.sigej.models.status_ordem_servico import StatusOrdemServico
 
 class OrdemServicoService:
     def __init__(
@@ -62,7 +62,10 @@ class OrdemServicoService:
             raise ValueError("Líder não encontrado.")
 
         status_aberta = self.__status_dao.find_by_id(1)
-        status_id = status_aberta.id if status_aberta else 1
+        if status_aberta:
+            status_id = status_aberta.id
+        else:
+            status_id = self.__status_dao.insert(StatusOrdemServico(descricao="aberta"))
         numero = numero_sequencial or f"OS-{int(datetime.now().timestamp())}"
         os = OrdemServico(
             numero_sequencial=numero,

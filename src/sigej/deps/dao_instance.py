@@ -1,32 +1,31 @@
 from typing import Optional
-from src.sigej.daos import (
-    AndamentoOrdemServicoDAO,
-    AreaCampusDAO,
-    CategoriaMaterialDAO,
-    CorDAO,
-    EquipeManutencaoDAO,
-    EquipeMembroDAO,
-    EstoqueDAO,
-    FornecedorDAO,
-    FuncionarioDAO,
-    ItemOrdemServicoDAO,
-    LocalEstoqueDAO,
-    MarcaDAO,
-    MovimentoEstoqueDAO,
-    OrdemServicoDAO,
-    PessoaDAO,
-    ProdutoDAO,
-    ProdutoVariacaoDAO,
-    RelatoriosDAO,
-    SetorDAO,
-    StatusOrdemServicoDAO,
-    TamanhoDAO,
-    TipoAreaCampusDAO,
-    TipoFuncionarioDAO,
-    TipoMovimentoEstoqueDAO,
-    TipoOrdemServicoDAO,
-    UnidadeMedidaDAO,
-)
+
+from src.sigej.daos.andamento_ordem_servico_dao import AndamentoOrdemServicoDAO
+from src.sigej.daos.area_campus_dao import AreaCampusDAO
+from src.sigej.daos.categoria_material_dao import CategoriaMaterialDAO
+from src.sigej.daos.cor_dao import CorDAO
+from src.sigej.daos.equipe_manutencao_dao import EquipeManutencaoDAO
+from src.sigej.daos.equipe_membro_dao import EquipeMembroDAO
+from src.sigej.daos.estoque_dao import EstoqueDAO
+from src.sigej.daos.fornecedor_dao import FornecedorDAO
+from src.sigej.daos.funcionario_dao import FuncionarioDAO
+from src.sigej.daos.item_ordem_servico_dao import ItemOrdemServicoDAO
+from src.sigej.daos.local_estoque_dao import LocalEstoqueDAO
+from src.sigej.daos.marca_dao import MarcaDAO
+from src.sigej.daos.movimento_estoque_dao import MovimentoEstoqueDAO
+from src.sigej.daos.ordem_servico_dao import OrdemServicoDAO
+from src.sigej.daos.pessoa_dao import PessoaDAO
+from src.sigej.daos.produto_dao import ProdutoDAO
+from src.sigej.daos.produto_variacao_dao import ProdutoVariacaoDAO
+from src.sigej.daos.relatorios_dao import RelatoriosDAO
+from src.sigej.daos.setor_dao import SetorDAO
+from src.sigej.daos.status_ordem_servico_dao import StatusOrdemServicoDAO
+from src.sigej.daos.tamanho_dao import TamanhoDAO
+from src.sigej.daos.tipo_area_campus_dao import TipoAreaCampusDAO
+from src.sigej.daos.tipo_funcionario_dao import TipoFuncionarioDAO
+from src.sigej.daos.tipo_movimento_estoque_dao import TipoMovimentoEstoqueDAO
+from src.sigej.daos.tipo_ordem_servico_dao import TipoOrdemServicoDAO
+from src.sigej.daos.unidade_medida_dao import UnidadeMedidaDAO
 
 class DAOInstance:
     __pessoa_dao: Optional[PessoaDAO] = None
