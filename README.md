@@ -171,25 +171,6 @@ As consultas obrigatórias da disciplina são implementadas como SQL puro nos DA
 
 ---
 
-## Relatórios e documentação
-
-- **DER:** `docs/results/diagrams/der.png`
-- **Screenshots do sistema:** `docs/results/screenshots/`
-- **Relatório em LaTeX:** `relatorio_sigej.tex`
-  - Para gerar o PDF (com LaTeX instalado):
-    ```bash
-    pdflatex relatorio_sigej.tex
-    ```
-
-Opcionalmente, há um script de geração de PDF via Python (resumo do relatório + imagens), usando `fpdf2`:
-
-```bash
-uv run python scripts/generate_report.py
-# Gera docs/sigej_relatorio.pdf
-```
-
----
-
 ## Estrutura resumida de pastas
 
 ```text
