@@ -218,16 +218,3 @@ uv run python scripts/generate_report.py
         ├── diagrams/der.png   # Diagrama ER
         └── screenshots/       # Prints de telas
 ```
-
----
-
-## Próximos passos / ideias futuras
-
-- Autenticação e perfis de usuário (coordenação, equipe, consulta).
-- Filtros avançados na tela de relatórios (por período, área, tipo de OS, equipe).
-- Exportação de relatórios para PDF/CSV direto da interface.
-- Gráficos interativos no dashboard usando uma biblioteca de charts.
-
----
-
-Se tiver dúvidas sobre a execução ou sobre o modelo de dados, consulte também o arquivo `relatorio_sigej.tex`, que documenta o projeto com mais detalhes para fins acadêmicos.
