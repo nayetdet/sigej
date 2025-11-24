@@ -1,7 +1,8 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class TipoMovimentoEstoque:
-    id: int | None = None
-    descricao: str | None = None
-    sinal: str | None = None
+    id: Optional[int] = None
+    descricao: Optional[str] = None
+    sinal: Optional[str] = None

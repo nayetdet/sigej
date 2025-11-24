@@ -1,9 +1,10 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class Produto:
-    id: int | None = None
-    descricao: str | None = None
-    categoria_id: int | None = None
-    unidade_medida_id: int | None = None
-    marca_id: int | None = None
+    id: Optional[int] = None
+    descricao: Optional[str] = None
+    categoria_id: Optional[int] = None
+    unidade_medida_id: Optional[int] = None
+    marca_id: Optional[int] = None

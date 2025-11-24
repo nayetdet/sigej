@@ -1,11 +1,12 @@
+from typing import Optional
 from dataclasses import dataclass
 from datetime import date
 
 @dataclass
 class Funcionario:
-    id: int | None = None
-    pessoa_id: int | None = None
-    tipo_funcionario_id: int | None = None
-    setor_id: int | None = None
-    data_admissao: date | None = None
-    data_demissao: date | None = None
+    id: Optional[int] = None
+    pessoa_id: Optional[int] = None
+    tipo_funcionario_id: Optional[int] = None
+    setor_id: Optional[int] = None
+    data_admissao: Optional[date] = None
+    data_demissao: Optional[date] = None

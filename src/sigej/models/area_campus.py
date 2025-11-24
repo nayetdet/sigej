@@ -1,8 +1,9 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class AreaCampus:
-    id: int | None = None
-    tipo_area_id: int | None = None
-    descricao: str | None = None
-    bloco: str | None = None
+    id: Optional[int] = None
+    tipo_area_id: Optional[int] = None
+    descricao: Optional[str] = None
+    bloco: Optional[str] = None

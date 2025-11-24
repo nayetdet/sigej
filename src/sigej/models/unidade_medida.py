@@ -1,7 +1,8 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class UnidadeMedida:
-    id: int | None = None
-    sigla: str | None = None
-    descricao: str | None = None
+    id: Optional[int] = None
+    sigla: Optional[str] = None
+    descricao: Optional[str] = None

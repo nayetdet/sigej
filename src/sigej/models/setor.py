@@ -1,7 +1,8 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class Setor:
-    id: int | None = None
-    nome: str | None = None
-    sigla: str | None = None
+    id: Optional[int] = None
+    nome: Optional[str] = None
+    sigla: Optional[str] = None

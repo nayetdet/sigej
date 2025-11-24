@@ -1,11 +1,12 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class Pessoa:
-    id: int | None = None
-    nome: str | None = None
-    cpf: str | None = None
-    matricula_siape: str | None = None
-    email: str | None = None
-    telefone: str | None = None
+    id: Optional[int] = None
+    nome: Optional[str] = None
+    cpf: Optional[str] = None
+    matricula_siape: Optional[str] = None
+    email: Optional[str] = None
+    telefone: Optional[str] = None
     ativo: bool = True

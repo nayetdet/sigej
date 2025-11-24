@@ -1,10 +1,11 @@
+from typing import Optional
 from dataclasses import dataclass
 
 @dataclass
 class ProdutoVariacao:
-    id: int | None = None
-    produto_id: int | None = None
-    cor_id: int | None = None
-    tamanho_id: int | None = None
-    codigo_barras: str | None = None
-    codigo_interno: str | None = None
+    id: Optional[int] = None
+    produto_id: Optional[int] = None
+    cor_id: Optional[int] = None
+    tamanho_id: Optional[int] = None
+    codigo_barras: Optional[str] = None
+    codigo_interno: Optional[str] = None

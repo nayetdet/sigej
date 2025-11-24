@@ -1,14 +1,15 @@
+from typing import Optional
 from dataclasses import dataclass
 from datetime import datetime
 
 @dataclass
 class AndamentoOrdemServico:
-    id: int | None = None
-    os_id: int | None = None
-    data_hora: datetime | None = None
-    status_anterior_id: int | None = None
-    status_novo_id: int | None = None
-    funcionario_id: int | None = None
-    descricao: str | None = None
-    inicio_atendimento: datetime | None = None
-    fim_atendimento: datetime | None = None
+    id: Optional[int] = None
+    os_id: Optional[int] = None
+    data_hora: Optional[datetime] = None
+    status_anterior_id: Optional[int] = None
+    status_novo_id: Optional[int] = None
+    funcionario_id: Optional[int] = None
+    descricao: Optional[str] = None
+    inicio_atendimento: Optional[datetime] = None
+    fim_atendimento: Optional[datetime] = None
