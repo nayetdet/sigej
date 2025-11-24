@@ -6,9 +6,6 @@ bp = Blueprint("variacoes_bp", __name__)
 
 @bp.route("/produtos/variacoes", methods=["GET", "POST"])
 def variacoes():
-    produto_service = ServiceInstance.get_produto_service()
-    variacao_service = ServiceInstance.get_produto_variacao_service()
-
     if request.method == "POST":
         produto_id = ParseUtils.to_int(request.form.get("produto_id", ""))
         cor_id = ParseUtils.to_int(request.form.get("cor_id", ""))
@@ -19,7 +16,7 @@ def variacoes():
             flash("Produto é obrigatório.")
             return redirect(url_for("variacoes_bp.variacoes"))
         try:
-            variacao_id = variacao_service.criar(
+            variacao_id = ServiceInstance.get_produto_variacao_service().criar(
                 produto_id=produto_id,
                 cor_id=cor_id,
                 tamanho_id=tamanho_id,
@@ -32,8 +29,10 @@ def variacoes():
             flash(f"Erro ao cadastrar variação: {exc}")
         return redirect(url_for("variacoes_bp.variacoes"))
 
-    produtos = produto_service.listar()
-    variacoes_por_produto = {p.id: variacao_service.listar_por_produto(p.id) for p in produtos}
+    produtos = ServiceInstance.get_produto_service().listar()
+    variacoes_por_produto = {
+        p.id: ServiceInstance.get_produto_variacao_service().listar_por_produto(p.id) for p in produtos
+    }
     total_variacoes = sum(len(v) for v in variacoes_por_produto.values())
     return render_template(
         "cadastro_produto_variacao.html",

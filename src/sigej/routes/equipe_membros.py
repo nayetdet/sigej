@@ -7,9 +7,6 @@ bp = Blueprint("equipe_membros_bp", __name__)
 
 @bp.route("/equipes/membros", methods=["GET", "POST"])
 def equipe_membros():
-    equipe_service = ServiceInstance.get_equipe_service()
-    membros_service = ServiceInstance.get_equipe_membro_service()
-
     if request.method == "POST":
         equipe_id = ParseUtils.to_int(request.form.get("equipe_id", ""))
         funcionario_id = ParseUtils.to_int(request.form.get("funcionario_id", ""))
@@ -23,7 +20,7 @@ def equipe_membros():
         try:
             data_inicio = date.fromisoformat(data_inicio_str)
             data_fim = date.fromisoformat(data_fim_str) if data_fim_str else None
-            membro_id = membros_service.adicionar_membro(
+            membro_id = ServiceInstance.get_equipe_membro_service().adicionar_membro(
                 equipe_id=equipe_id,
                 funcionario_id=funcionario_id,
                 data_inicio=data_inicio,
@@ -36,9 +33,9 @@ def equipe_membros():
             flash(f"Erro ao adicionar membro: {exc}")
         return redirect(url_for("equipe_membros_bp.equipe_membros"))
 
-    equipes = equipe_service.listar()
+    equipes = ServiceInstance.get_equipe_service().listar()
     funcionarios = ServiceInstance.get_funcionario_service().listar()
-    membros_por_equipe = {e.id: membros_service.listar_por_equipe(e.id) for e in equipes}
+    membros_por_equipe = {e.id: ServiceInstance.get_equipe_membro_service().listar_por_equipe(e.id) for e in equipes}
     return render_template(
         "cadastro_equipe_membro.html",
         equipes=equipes,

@@ -51,4 +51,59 @@
     <p>Nenhum material abaixo do ponto de reposição.</p>
   {% endif %}
 </div>
+
+<div class="card">
+  <h2>Timeline da última OS em aberto</h2>
+  {% if timeline_os %}
+    <p>OS #{{ os_id_timeline }}</p>
+    <table>
+      <tr><th>Data/Hora</th><th>Responsável</th><th>Status</th><th>Descrição</th></tr>
+      {% for row in timeline_os %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+          <td>{{ row[3] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Sem movimentações para exibir.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2>Consumo por equipe (outubro/2025)</h2>
+  {% if consumo_outubro %}
+    <table>
+      <tr><th>Equipe</th><th>Produto</th><th>Total</th></tr>
+      {% for row in consumo_outubro %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+          <td>{{ row[2] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Sem registros no período.</p>
+  {% endif %}
+</div>
+
+<div class="card">
+  <h2>OS concluídas por tipo (ano 2025)</h2>
+  {% if os_concluidas_ano %}
+    <table>
+      <tr><th>Tipo</th><th>Total</th></tr>
+      {% for row in os_concluidas_ano %}
+        <tr>
+          <td>{{ row[0] }}</td>
+          <td>{{ row[1] }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Nenhuma OS concluída no ano informado.</p>
+  {% endif %}
+</div>
 {% endblock %}

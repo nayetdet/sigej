@@ -7,7 +7,6 @@ bp = Blueprint("movimentos_bp", __name__)
 
 @bp.route("/movimentos-estoque", methods=["GET", "POST"])
 def movimentos():
-    estoque_service = ServiceInstance.get_estoque_service()
     if request.method == "POST":
         variacao_id = ParseUtils.to_int(request.form.get("produto_variacao_id", ""))
         local_id = ParseUtils.to_int(request.form.get("local_estoque_id", ""))
@@ -25,7 +24,7 @@ def movimentos():
             flash("Variação, local e tipo de movimento são obrigatórios.")
             return redirect(url_for("movimentos_bp.movimentos"))
         try:
-            mov_id = estoque_service.registrar_movimento(
+            mov_id = ServiceInstance.get_estoque_service().registrar_movimento(
                 produto_variacao_id=variacao_id,
                 local_id=local_id,
                 quantidade=quantidade,
@@ -42,7 +41,7 @@ def movimentos():
 
     return render_template(
         "cadastro_movimento_estoque.html",
-        movimentos=estoque_service.listar_movimentos(),
+        movimentos=ServiceInstance.get_estoque_service().listar_movimentos(),
         variacoes=ServiceInstance.get_produto_variacao_service().listar_todas(),
         locais=ServiceInstance.get_local_estoque_service().listar(),
         tipos_movimento=ServiceInstance.get_tipo_movimento_service().listar(),

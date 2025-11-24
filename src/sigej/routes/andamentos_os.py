@@ -7,7 +7,6 @@ bp = Blueprint("andamentos_os_bp", __name__)
 
 @bp.route("/andamentos-os", methods=["GET", "POST"])
 def andamentos_os():
-    os_service = ServiceInstance.get_ordem_servico_service()
     if request.method == "POST":
         os_id = ParseUtils.to_int(request.form.get("os_id", ""))
         novo_status_id = ParseUtils.to_int(request.form.get("status_id", ""))
@@ -17,7 +16,7 @@ def andamentos_os():
             flash("OS, status e funcionário são obrigatórios.")
             return redirect(url_for("andamentos_os_bp.andamentos_os", os_id=os_id or ""))
         try:
-            os_service.atualizar_status(
+            ServiceInstance.get_ordem_servico_service().atualizar_status(
                 os_id=os_id,
                 novo_status_id=novo_status_id,
                 funcionario_id=funcionario_id,
@@ -30,11 +29,11 @@ def andamentos_os():
         return redirect(url_for("andamentos_os_bp.andamentos_os", os_id=os_id))
 
     os_id_param = ParseUtils.to_int(request.args.get("os_id", "") or "")
-    timeline = os_service.timeline(os_id_param) if os_id_param else []
+    timeline = ServiceInstance.get_ordem_servico_service().timeline(os_id_param) if os_id_param else []
     return render_template(
         "cadastro_andamento_os.html",
         os_id=os_id_param,
-        ordens=os_service.listar(),
+        ordens=ServiceInstance.get_ordem_servico_service().listar(),
         status_list=ServiceInstance.get_status_os_service().listar(),
         funcionarios=ServiceInstance.get_funcionario_service().listar(),
         timeline=timeline,

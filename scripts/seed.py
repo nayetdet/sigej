@@ -1,6 +1,8 @@
+import logging
 import random
 from datetime import datetime, timedelta
 from decimal import Decimal
+from typing import Optional
 from faker import Faker
 from src.sigej.database import database
 from src.sigej.deps.dao_instance import DAOInstance
@@ -260,13 +262,13 @@ class DatabaseSeeder:
         locais_ids: list[int],
         tipo_movimentos: dict[str, int],
         funcionarios_ids: list[int],
+        os_ids: Optional[list[int]] = None,
     ) -> list[tuple[int, int]]:
-        estoque_dao = DAOInstance.get_estoque_dao()
         estoque_pairs = []
         for variacao_id in variacoes_ids:
             local_id = random.choice(locais_ids)
             ponto_reposicao = Decimal(random.randint(3, 10))
-            estoque_dao.upsert(
+            DAOInstance.get_estoque_dao().upsert(
                 Estoque(
                     produto_variacao_id=variacao_id,
                     local_estoque_id=local_id,
@@ -282,6 +284,7 @@ class DatabaseSeeder:
                 quantidade=quantidade,
                 tipo_movimento_id=tipo_movimentos["entrada"],
                 funcionario_id=random.choice(funcionarios_ids),
+                os_id=random.choice(os_ids) if os_ids else None,
                 observacao="Carga inicial",
             )
 
@@ -294,6 +297,7 @@ class DatabaseSeeder:
         estoque_pairs: list[tuple[int, int]],
         tipo_movimentos: dict[str, int],
         funcionarios_ids: list[int],
+        os_ids: Optional[list[int]] = None,
     ) -> None:
         for variacao_id, local_id in random.sample(estoque_pairs, k=max(1, len(estoque_pairs) // 3)):
             quantidade = Decimal(f"{random.uniform(1, 5):.2f}")
@@ -304,6 +308,7 @@ class DatabaseSeeder:
                 quantidade=quantidade,
                 tipo_movimento_id=tipo_id,
                 funcionario_id=random.choice(funcionarios_ids),
+                os_id=random.choice(os_ids) if os_ids else None,
                 observacao="Movimento automatizado",
             )
 
@@ -393,11 +398,6 @@ class DatabaseSeeder:
         produtos = cls.seed_produtos(categorias, unidades, marcas)
         variacoes = cls.seed_variacoes(produtos, cores, tamanhos)
 
-        tipo_movimentos = cls.seed_tipos_movimento()
-        locais = cls.seed_locais(funcionarios)
-        estoque_pairs = cls.seed_estoque(variacoes, locais, tipo_movimentos, funcionarios)
-        cls.seed_movimentos_extras(estoque_pairs, tipo_movimentos, funcionarios)
-
         tipos_os = cls.seed_tipos_os()
         status_os = cls.seed_status_os()
         ordens = cls.seed_ordens_servico(
@@ -409,8 +409,12 @@ class DatabaseSeeder:
             variacoes_ids=variacoes,
         )
 
+        tipo_movimentos = cls.seed_tipos_movimento()
+        locais = cls.seed_locais(funcionarios)
+        estoque_pairs = cls.seed_estoque(variacoes, locais, tipo_movimentos, funcionarios, os_ids=ordens)
+        cls.seed_movimentos_extras(estoque_pairs, tipo_movimentos, funcionarios, os_ids=ordens)
         cls.seed_andamentos(ordens, status_os, funcionarios)
-        print("Base populada com sucesso.")
+        logging.info("Base de dados populada com sucesso.")
 
 def main():
     DatabaseSeeder.run()

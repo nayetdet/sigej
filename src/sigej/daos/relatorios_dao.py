@@ -11,7 +11,7 @@ class RelatoriosDAO(BaseDAO):
             JOIN tipo_ordem_servico tos ON os.tipo_os_id = tos.id
             JOIN status_ordem_servico sts ON os.status_id = sts.id
             JOIN pessoa p ON os.solicitante_id = p.id
-            WHERE lower(sts.descricao) IN ('aberta', 'em_atendimento', 'aguardando_material')
+            WHERE replace(lower(sts.descricao), ' ', '_') IN ('aberta', 'em_atendimento', 'aguardando_material')
             ORDER BY os.prioridade ASC, os.data_abertura ASC
             """
         )
@@ -50,7 +50,7 @@ class RelatoriosDAO(BaseDAO):
             FROM ordem_servico os
             JOIN tipo_ordem_servico tos ON os.tipo_os_id = tos.id
             JOIN status_ordem_servico sts ON os.status_id = sts.id
-            WHERE sts.descricao = 'concluída' AND EXTRACT(YEAR FROM os.data_abertura) = %s
+            WHERE replace(lower(sts.descricao), 'í', 'i') = 'concluida' AND EXTRACT(YEAR FROM os.data_abertura) = %s
             GROUP BY tos.descricao
             """,
             [ano],

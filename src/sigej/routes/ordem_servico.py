@@ -32,10 +32,9 @@ def nova_os():
         except Exception as exc:
             flash(f"Erro ao criar OS: {exc}")
 
-    pessoa_service = ServiceInstance.get_pessoa_service()
     funcionarios = []
     for func in ServiceInstance.get_funcionario_service().listar():
-        pessoa = pessoa_service.buscar(func.pessoa_id)
+        pessoa = ServiceInstance.get_pessoa_service().buscar(func.pessoa_id)
         funcionarios.append(
             {
                 "id": func.id,
@@ -46,7 +45,7 @@ def nova_os():
 
     return render_template(
         "os_form.html",
-        pessoas=pessoa_service.listar(),
+        pessoas=ServiceInstance.get_pessoa_service().listar(),
         areas=ServiceInstance.get_area_service().listar_areas(),
         tipos_os=ServiceInstance.get_tipo_os_service().listar(),
         equipes=ServiceInstance.get_equipe_service().listar(),
