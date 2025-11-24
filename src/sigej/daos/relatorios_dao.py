@@ -50,8 +50,10 @@ class RelatoriosDAO(BaseDAO):
             FROM ordem_servico os
             JOIN tipo_ordem_servico tos ON os.tipo_os_id = tos.id
             JOIN status_ordem_servico sts ON os.status_id = sts.id
-            WHERE replace(lower(sts.descricao), 'í', 'i') = 'concluida' AND EXTRACT(YEAR FROM os.data_abertura) = %s
+            WHERE replace(lower(sts.descricao), 'í', 'i') = 'concluida'
+              AND EXTRACT(YEAR FROM os.data_abertura) = %s
             GROUP BY tos.descricao
+            ORDER BY tos.descricao
             """,
             [ano],
         )

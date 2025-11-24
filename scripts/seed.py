@@ -79,7 +79,11 @@ class DatabaseSeeder:
 
     @classmethod
     def seed_funcionarios(
-        cls, pessoas_ids: list[int], tipos_ids: list[int], setores_ids: list[int], total: int = 14
+        cls,
+        pessoas_ids: list[int],
+        tipos_ids: list[int],
+        setores_ids: list[int],
+        total: int = 15
     ) -> list[int]:
         escolhidos = random.sample(pessoas_ids, total)
         funcionarios_ids = []
@@ -115,7 +119,7 @@ class DatabaseSeeder:
         return areas_ids
 
     @classmethod
-    def seed_equipes(cls, total: int = 4) -> list[int]:
+    def seed_equipes(cls, total: int = 5) -> list[int]:
         nomes = ["Equipe Alfa", "Equipe Bravo", "Equipe Delta", "Equipe Eco", "Equipe Fox"]
         turnos = ["manha", "tarde", "noite"]
         equipes_ids = []
@@ -158,7 +162,7 @@ class DatabaseSeeder:
         return [ServiceInstance.get_unidade_medida_service().criar(sigla=sigla, descricao=desc) for sigla, desc in unidades]
 
     @classmethod
-    def seed_fornecedores(cls, total: int = 6) -> list[int]:
+    def seed_fornecedores(cls, total: int = 8) -> list[int]:
         fornecedores_ids = []
         for _ in range(total):
             fornecedores_ids.append(
@@ -170,7 +174,7 @@ class DatabaseSeeder:
         return fornecedores_ids
 
     @classmethod
-    def seed_marcas(cls, total: int = 6) -> list[int]:
+    def seed_marcas(cls, total: int = 8) -> list[int]:
         marcas_ids = []
         for _ in range(total):
             marcas_ids.append(ServiceInstance.get_marca_service().criar(nome=cls.__fake.unique.company_suffix()))
@@ -231,7 +235,7 @@ class DatabaseSeeder:
         return variacoes_ids
 
     @classmethod
-    def seed_locais(cls, funcionarios_ids: list[int], total: int = 3) -> list[int]:
+    def seed_locais(cls, funcionarios_ids: list[int], total: int = 5) -> list[int]:
         locais_ids = []
         for idx in range(total):
             descricao = f"Deposito {idx + 1}"
@@ -267,7 +271,7 @@ class DatabaseSeeder:
         estoque_pairs = []
         for variacao_id in variacoes_ids:
             local_id = random.choice(locais_ids)
-            ponto_reposicao = Decimal(random.randint(3, 10))
+            ponto_reposicao = Decimal(random.randint(5, 10))
             DAOInstance.get_estoque_dao().upsert(
                 Estoque(
                     produto_variacao_id=variacao_id,
@@ -278,7 +282,7 @@ class DatabaseSeeder:
             )
 
             quantidade = Decimal(f"{random.uniform(5, 40):.2f}")
-            ServiceInstance.get_estoque_service().registrar_movimento(
+            mov_id = ServiceInstance.get_estoque_service().registrar_movimento(
                 produto_variacao_id=variacao_id,
                 local_id=local_id,
                 quantidade=quantidade,
@@ -287,6 +291,13 @@ class DatabaseSeeder:
                 os_id=random.choice(os_ids) if os_ids else None,
                 observacao="Carga inicial",
             )
+
+            if os_ids:
+                alvo = datetime(2025, 10, random.randint(1, 30), random.randint(7, 18), random.randint(0, 59))
+                DAOInstance.get_movimento_estoque_dao()._execute(
+                    "UPDATE movimento_estoque SET data_hora = %s, ordem_servico_id = %s WHERE id = %s",
+                    [alvo, random.choice(os_ids), mov_id],
+                )
 
             estoque_pairs.append((variacao_id, local_id))
         return estoque_pairs
@@ -302,7 +313,7 @@ class DatabaseSeeder:
         for variacao_id, local_id in random.sample(estoque_pairs, k=max(1, len(estoque_pairs) // 3)):
             quantidade = Decimal(f"{random.uniform(1, 5):.2f}")
             tipo_id = random.choice([tipo_movimentos["saida"], tipo_movimentos["ajuste"]])
-            ServiceInstance.get_estoque_service().registrar_movimento(
+            mov_id = ServiceInstance.get_estoque_service().registrar_movimento(
                 produto_variacao_id=variacao_id,
                 local_id=local_id,
                 quantidade=quantidade,
@@ -312,6 +323,13 @@ class DatabaseSeeder:
                 observacao="Movimento automatizado",
             )
 
+            if os_ids:
+                alvo = datetime(2025, 10, random.randint(1, 30), random.randint(7, 18), random.randint(0, 59))
+                DAOInstance.get_movimento_estoque_dao()._execute(
+                    "UPDATE movimento_estoque SET data_hora = %s, ordem_servico_id = %s WHERE id = %s",
+                    [alvo, random.choice(os_ids), mov_id],
+                )
+
     @classmethod
     def seed_tipos_os(cls) -> list[int]:
         descricoes = ["Manutencao eletrica", "Manutencao hidraulica", "Infraestrutura", "TI"]
@@ -319,7 +337,7 @@ class DatabaseSeeder:
 
     @classmethod
     def seed_status_os(cls) -> list[int]:
-        descricoes = ["aberta", "em andamento", "aguardando material", "concluida", "cancelada"]
+        descricoes = ["aberta", "em_atendimento", "aguardando_material", "concluída", "cancelada"]
         return [ServiceInstance.get_status_os_service().criar(desc) for desc in descricoes]
 
     @classmethod
@@ -334,8 +352,9 @@ class DatabaseSeeder:
         total: int = 6,
     ) -> list[int]:
         os_ids = []
+        base_data = datetime(2025, 10, 10)
         for idx in range(total):
-            abertura = datetime.now() - timedelta(days=random.randint(1, 20))
+            abertura = base_data + timedelta(days=random.randint(-20, 20))
             previsao = abertura.date() + timedelta(days=random.randint(2, 10))
             itens = []
             for variacao_id in random.sample(variacoes_ids, random.randint(1, 3)):
@@ -366,10 +385,10 @@ class DatabaseSeeder:
     @classmethod
     def seed_andamentos(cls, ordens_ids: list[int], status_ids: list[int], lideres_ids: list[int]) -> None:
         for os_id in ordens_ids:
-            if random.random() > 0.4:
+            if random.random() > 0.2:
                 ServiceInstance.get_ordem_servico_service().atualizar_status(
                     os_id=os_id,
-                    novo_status_id=random.choice(status_ids[1:]),
+                    novo_status_id=random.choice(status_ids),
                     funcionario_id=random.choice(lideres_ids),
                     descricao="Atualizacao automatica",
                     inicio_atendimento=datetime.now() - timedelta(days=random.randint(0, 3)),
