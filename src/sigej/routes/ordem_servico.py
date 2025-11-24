@@ -52,5 +52,6 @@ def nova_os():
         funcionarios=funcionarios,
         tipos_funcionarios=ServiceInstance.get_tipo_funcionario_service().listar(),
         setores=ServiceInstance.get_setor_service().listar(),
+        ordens_existentes=ServiceInstance.get_ordem_servico_service().listar(),
         today=date.today(),
     )

@@ -65,4 +65,24 @@
 
   <button class="btn" type="submit">Criar OS</button>
 </form>
+
+<div class="card" style="margin-top:16px;">
+  <h3>Ordens já cadastradas</h3>
+  {% if ordens_existentes %}
+    <table>
+      <tr><th>ID</th><th>Número</th><th>Status</th><th>Tipo</th><th>Abertura</th></tr>
+      {% for os in ordens_existentes %}
+        <tr>
+          <td>{{ os.id }}</td>
+          <td>{{ os.numero_sequencial }}</td>
+          <td>{{ os.status_id }}</td>
+          <td>{{ os.tipo_os_id }}</td>
+          <td>{{ os.data_abertura }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>Nenhuma OS cadastrada ainda.</p>
+  {% endif %}
+</div>
 {% endblock %}
