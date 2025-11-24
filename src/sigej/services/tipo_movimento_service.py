@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.tipo_movimento_estoque_dao import TipoMovimentoEstoqueDAO
 from src.sigej.models.tipo_movimento_estoque import TipoMovimentoEstoque
 

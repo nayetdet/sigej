@@ -18,4 +18,7 @@ def setores():
             flash(f"Erro ao cadastrar setor: {exc}")
         return redirect(url_for("setores_bp.setores"))
 
-    return render_template("cadastro_setor.html", setores=ServiceInstance.get_setor_service().listar())
+    return render_template(
+        "cadastro_setor.html",
+        setores=ServiceInstance.get_setor_service().listar(),
+    )

@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.tamanho_dao import TamanhoDAO
 from src.sigej.models.tamanho import Tamanho
 

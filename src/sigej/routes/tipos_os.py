@@ -17,4 +17,7 @@ def tipos_os():
             flash(f"Erro ao cadastrar tipo de OS: {exc}")
         return redirect(url_for("tipos_os_bp.tipos_os"))
 
-    return render_template("cadastro_tipo_os.html", tipos=ServiceInstance.get_tipo_os_service().listar())
+    return render_template(
+        "cadastro_tipo_os.html",
+        tipos=ServiceInstance.get_tipo_os_service().listar(),
+    )

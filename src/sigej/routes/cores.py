@@ -17,4 +17,7 @@ def cores():
             flash(f"Erro ao cadastrar cor: {exc}")
         return redirect(url_for("cores_bp.cores"))
 
-    return render_template("cadastro_cor.html", cores=ServiceInstance.get_cor_service().listar())
+    return render_template(
+        "cadastro_cor.html",
+        cores=ServiceInstance.get_cor_service().listar(),
+    )

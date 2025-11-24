@@ -1,6 +1,5 @@
 from datetime import date
 from typing import Optional, List
-
 from src.sigej.daos.equipe_manutencao_dao import EquipeManutencaoDAO
 from src.sigej.daos.equipe_membro_dao import EquipeMembroDAO
 from src.sigej.daos.funcionario_dao import FuncionarioDAO

@@ -17,4 +17,7 @@ def categorias():
             flash(f"Erro ao cadastrar categoria: {exc}")
         return redirect(url_for("categorias_bp.categorias"))
 
-    return render_template("cadastro_categoria.html", categorias=ServiceInstance.get_categoria_service().listar())
+    return render_template(
+        "cadastro_categoria.html",
+        categorias=ServiceInstance.get_categoria_service().listar(),
+    )

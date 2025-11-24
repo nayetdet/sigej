@@ -22,4 +22,7 @@ def solicitantes():
             flash(f"Erro ao cadastrar solicitante: {exc}")
         return redirect(url_for("solicitantes_bp.solicitantes"))
 
-    return render_template("cadastro_solicitante.html", pessoas=ServiceInstance.get_pessoa_service().listar())
+    return render_template(
+        "cadastro_solicitante.html",
+        pessoas=ServiceInstance.get_pessoa_service().listar(),
+    )

@@ -1,5 +1,4 @@
 from typing import List, Optional
-
 from src.sigej.daos.fornecedor_dao import FornecedorDAO
 from src.sigej.models.fornecedor import Fornecedor
 

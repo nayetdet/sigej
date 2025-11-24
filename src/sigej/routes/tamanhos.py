@@ -17,4 +17,7 @@ def tamanhos():
             flash(f"Erro ao cadastrar tamanho: {exc}")
         return redirect(url_for("tamanhos_bp.tamanhos"))
 
-    return render_template("cadastro_tamanho.html", tamanhos=ServiceInstance.get_tamanho_service().listar())
+    return render_template(
+        "cadastro_tamanho.html",
+        tamanhos=ServiceInstance.get_tamanho_service().listar(),
+    )

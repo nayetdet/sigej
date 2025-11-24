@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.tipo_funcionario_dao import TipoFuncionarioDAO
 from src.sigej.models.tipo_funcionario import TipoFuncionario
 

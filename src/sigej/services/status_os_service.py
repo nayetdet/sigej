@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.status_ordem_servico_dao import StatusOrdemServicoDAO
 from src.sigej.models.status_ordem_servico import StatusOrdemServico
 

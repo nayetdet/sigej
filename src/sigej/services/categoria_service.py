@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.categoria_material_dao import CategoriaMaterialDAO
 from src.sigej.models.categoria_material import CategoriaMaterial
 

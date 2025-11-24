@@ -17,4 +17,7 @@ def status_os():
             flash(f"Erro ao cadastrar status: {exc}")
         return redirect(url_for("status_os_bp.status_os"))
 
-    return render_template("cadastro_status_os.html", status_list=ServiceInstance.get_status_os_service().listar())
+    return render_template(
+        "cadastro_status_os.html",
+        status_list=ServiceInstance.get_status_os_service().listar(),
+    )

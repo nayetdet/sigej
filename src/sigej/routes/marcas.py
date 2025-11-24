@@ -17,4 +17,7 @@ def marcas():
             flash(f"Erro ao cadastrar marca: {exc}")
         return redirect(url_for("marcas_bp.marcas"))
 
-    return render_template("cadastro_marca.html", marcas=ServiceInstance.get_marca_service().listar())
+    return render_template(
+        "cadastro_marca.html",
+        marcas=ServiceInstance.get_marca_service().listar(),
+    )

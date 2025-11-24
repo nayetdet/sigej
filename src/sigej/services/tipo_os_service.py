@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.tipo_ordem_servico_dao import TipoOrdemServicoDAO
 from src.sigej.models.tipo_ordem_servico import TipoOrdemServico
 

@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.marca_dao import MarcaDAO
 from src.sigej.models.marca import Marca
 

@@ -18,4 +18,7 @@ def unidades():
             flash(f"Erro ao cadastrar unidade: {exc}")
         return redirect(url_for("unidades_bp.unidades"))
 
-    return render_template("cadastro_unidade.html", unidades=ServiceInstance.get_unidade_medida_service().listar())
+    return render_template(
+        "cadastro_unidade.html",
+        unidades=ServiceInstance.get_unidade_medida_service().listar(),
+    )

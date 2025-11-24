@@ -1,5 +1,4 @@
 from typing import List, Optional
-
 from src.sigej.daos.unidade_medida_dao import UnidadeMedidaDAO
 from src.sigej.models.unidade_medida import UnidadeMedida
 

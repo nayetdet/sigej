@@ -6,4 +6,4 @@ bp = Blueprint("home_bp", __name__)
 def home():
     os_abertas = ServiceInstance.get_relatorios_service().os_em_aberto_por_prioridade_area()
     materiais_baixos = ServiceInstance.get_relatorios_service().materiais_abaixo_ponto_reposicao()
-    return render_template("index.html", os_abertas=os_abertas, materiais_baixos=materiais_baixos)
+    return render_template("index.html", os_abertas=os_abertas, materiais_baixos=materiais_baixos, sidebar_links=None)

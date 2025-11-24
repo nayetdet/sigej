@@ -1,6 +1,5 @@
 from datetime import date
 from typing import List
-
 from src.sigej.daos.funcionario_dao import FuncionarioDAO
 from src.sigej.daos.pessoa_dao import PessoaDAO
 from src.sigej.daos.setor_dao import SetorDAO

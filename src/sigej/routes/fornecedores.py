@@ -18,4 +18,7 @@ def fornecedores():
             flash(f"Erro ao cadastrar fornecedor: {exc}")
         return redirect(url_for("fornecedores_bp.fornecedores"))
 
-    return render_template("cadastro_fornecedor.html", fornecedores=ServiceInstance.get_fornecedor_service().listar())
+    return render_template(
+        "cadastro_fornecedor.html",
+        fornecedores=ServiceInstance.get_fornecedor_service().listar(),
+    )

@@ -5,33 +5,6 @@ from src.sigej.utils.parse_utils import ParseUtils
 
 bp = Blueprint("os_bp", __name__)
 
-def _carregar_dados_os():
-    return {
-        "pessoas": ServiceInstance.get_pessoa_service().listar(),
-        "areas": ServiceInstance.get_area_service().listar_areas(),
-        "tipos_os": ServiceInstance.get_tipo_os_service().listar(),
-        "equipes": ServiceInstance.get_equipe_service().listar(),
-        "funcionarios": _listar_funcionarios_com_pessoa(),
-        "tipos_funcionarios": ServiceInstance.get_tipo_funcionario_service().listar(),
-        "setores": ServiceInstance.get_setor_service().listar(),
-        "today": date.today(),
-    }
-
-
-def _listar_funcionarios_com_pessoa():
-    funcionarios = []
-    pessoa_service = ServiceInstance.get_pessoa_service()
-    for func in ServiceInstance.get_funcionario_service().listar():
-        pessoa = pessoa_service.buscar(func.pessoa_id)
-        funcionarios.append(
-            {
-                "id": func.id,
-                "pessoa_id": func.pessoa_id,
-                "nome": pessoa.nome if pessoa else f"Funcionário {func.id}",
-            }
-        )
-    return funcionarios
-
 @bp.route("/os/nova", methods=["GET", "POST"])
 def nova_os():
     if request.method == "POST":
@@ -58,4 +31,26 @@ def nova_os():
         except Exception as exc:
             flash(f"Erro ao criar OS: {exc}")
 
-    return render_template("os_form.html", **_carregar_dados_os())
+    pessoa_service = ServiceInstance.get_pessoa_service()
+    funcionarios = []
+    for func in ServiceInstance.get_funcionario_service().listar():
+        pessoa = pessoa_service.buscar(func.pessoa_id)
+        funcionarios.append(
+            {
+                "id": func.id,
+                "pessoa_id": func.pessoa_id,
+                "nome": pessoa.nome if pessoa else f"Funcionário {func.id}",
+            }
+        )
+
+    return render_template(
+        "os_form.html",
+        pessoas=pessoa_service.listar(),
+        areas=ServiceInstance.get_area_service().listar_areas(),
+        tipos_os=ServiceInstance.get_tipo_os_service().listar(),
+        equipes=ServiceInstance.get_equipe_service().listar(),
+        funcionarios=funcionarios,
+        tipos_funcionarios=ServiceInstance.get_tipo_funcionario_service().listar(),
+        setores=ServiceInstance.get_setor_service().listar(),
+        today=date.today(),
+    )

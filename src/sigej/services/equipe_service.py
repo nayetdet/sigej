@@ -1,5 +1,4 @@
 from typing import List
-
 from src.sigej.daos.equipe_manutencao_dao import EquipeManutencaoDAO
 from src.sigej.models.equipe_manutencao import EquipeManutencao
 
